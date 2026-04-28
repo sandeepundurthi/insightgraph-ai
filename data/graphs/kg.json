@@ -1,0 +1,1472 @@
+[
+  {
+    "entities": [
+      {
+        "name": "GraphRAG",
+        "type": "Method"
+      },
+      {
+        "name": "Retrieval-Augmented Generation (RAG)",
+        "type": "Method"
+      },
+      {
+        "name": "FactRAG",
+        "type": "Method"
+      },
+      {
+        "name": "HybridRAG",
+        "type": "Method"
+      },
+      {
+        "name": "Knowledge Graphs",
+        "type": "Concept"
+      },
+      {
+        "name": "Finance Bench",
+        "type": "Dataset"
+      },
+      {
+        "name": "BNPParibas-ITGroup-AI&ITInnovation",
+        "type": "Organization"
+      },
+      {
+        "name": "Lingua Custodia",
+        "type": "Organization"
+      },
+      {
+        "name": "NEO4J",
+        "type": "Tool"
+      },
+      {
+        "name": "GraphThinking Consulting",
+        "type": "Organization"
+      },
+      {
+        "name": "BNPParibas-ITGroup-Production",
+        "type": "Organization"
+      },
+      {
+        "name": "BNPParibas-CashManagement",
+        "type": "Organization"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "GraphRAG",
+        "relationship": "is a",
+        "target": "Method",
+        "evidence": "GraphRAG: Leveraging Graph-Based Efficiency to Minimize Hallucinations in LLM-Driven RAG for Finance Data"
+      },
+      {
+        "source": "GraphRAG",
+        "relationship": "integrates",
+        "target": "Knowledge Graphs",
+        "evidence": "This study explores the integration of graph-based methods into Retrieval-Augmented Generation (RAG) systems"
+      },
+      {
+        "source": "GraphRAG",
+        "relationship": "aims to",
+        "target": "reduce hallucinations",
+        "evidence": "to enhance efficiency, reduce hallucinations, and improve explainability"
+      },
+      {
+        "source": "GraphRAG",
+        "relationship": "aims to",
+        "target": "improve explainability",
+        "evidence": "to enhance efficiency, reduce hallucinations, and improve explainability"
+      },
+      {
+        "source": "GraphRAG",
+        "relationship": "aims to",
+        "target": "improve performance",
+        "evidence": "We propose two strategies\u2014FactRAG and HybridRAG\u2014which leverage knowledge graphs to improve RAG performance"
+      },
+      {
+        "source": "FactRAG",
+        "relationship": "is a strategy of",
+        "target": "GraphRAG",
+        "evidence": "We propose two strategies\u2014FactRAG and HybridRAG\u2014which leverage knowledge graphs to improve RAG performance"
+      },
+      {
+        "source": "HybridRAG",
+        "relationship": "is a strategy of",
+        "target": "GraphRAG",
+        "evidence": "We propose two strategies\u2014FactRAG and HybridRAG\u2014which leverage knowledge graphs to improve RAG performance"
+      },
+      {
+        "source": "Knowledge Graphs",
+        "relationship": "are leveraged by",
+        "target": "FactRAG",
+        "evidence": "We propose two strategies\u2014FactRAG and HybridRAG\u2014which leverage knowledge graphs to improve RAG performance"
+      },
+      {
+        "source": "Knowledge Graphs",
+        "relationship": "are leveraged by",
+        "target": "HybridRAG",
+        "evidence": "We propose two strategies\u2014FactRAG and HybridRAG\u2014which leverage knowledge graphs to improve RAG performance"
+      },
+      {
+        "source": "RAG",
+        "relationship": "is integrated with",
+        "target": "Knowledge Graphs",
+        "evidence": "This study explores the integration of graph-based methods into Retrieval-Augmented Generation (RAG) systems"
+      },
+      {
+        "source": "RAG",
+        "relationship": "is enhanced by",
+        "target": "Knowledge Graphs",
+        "evidence": "This study explores the integration of graph-based methods into Retrieval-Augmented Generation (RAG) systems"
+      },
+      {
+        "source": "RAG",
+        "relationship": "is evaluated using",
+        "target": "Finance Bench",
+        "evidence": "Experiments conducted using Finance Bench, a benchmark for AI in finance, demonstrate that these approaches achieve a 6% reduction in hallucinations and an 80% decrease"
+      },
+      {
+        "source": "Finance Bench",
+        "relationship": "is a benchmark for",
+        "target": "AI in finance",
+        "evidence": "Experiments conducted using Finance Bench, a benchmark for AI in finance, demonstrate that these approaches achieve a 6% reduction in hallucinations and an 80% decrease"
+      },
+      {
+        "source": "BNPParibas-ITGroup-AI&ITInnovation",
+        "relationship": "is affiliated with",
+        "target": "MariamBarry",
+        "evidence": "MariamBarry1, Ga\u00ebtanCaillaut2, PierreHalftermeyer3, RaheelQader2, MehdiMouayad1, DimitriCariolaro4, FabriceLeDeit5, JosephGesnouin6, 1BNPParibas-ITGroup-AI&ITInnovation, 2LinguaCustodia, 3NEO4J, 4GraphThinkingConsulting, 5BNPParibas-ITGroup-Production, 6BNPParibas-CashManagement"
+      },
+      {
+        "source": "Lingua Custodia",
+        "relationship": "is affiliated with",
+        "target": "Ga\u00ebtanCaillaut",
+        "evidence": "MariamBarry1, Ga\u00ebtanCaillaut2, PierreHalftermeyer3, RaheelQader2, MehdiMouayad1, DimitriCariolaro4, FabriceLeDeit5, JosephGesnouin6, 1BNPParibas-ITGroup-AI&ITInnovation, 2LinguaCustodia, 3NEO4J, 4GraphThinkingConsulting, 5BNPParibas-ITGroup-Production, 6BNPParibas-CashManagement"
+      },
+      {
+        "source": "NEO4J",
+        "relationship": "is affiliated with",
+        "target": "PierreHalftermeyer",
+        "evidence": "MariamBarry1, Ga\u00ebtanCaillaut2, PierreHalftermeyer3, RaheelQader2, MehdiMouayad1, DimitriCariolaro4, FabriceLeDeit5, JosephGesnouin6, 1BNPParibas-ITGroup-AI&ITInnovation, 2LinguaCustodia, 3NEO4J, 4GraphThinkingConsulting, 5BNPParibas-ITGroup-Production, 6BNPParibas-CashManagement"
+      },
+      {
+        "source": "GraphThinking Consulting",
+        "relationship": "is affiliated with",
+        "target": "RaheelQader",
+        "evidence": "MariamBarry1, Ga\u00ebtanCaillaut2, PierreHalftermeyer3, RaheelQader2, MehdiMouayad1, DimitriCariolaro4, FabriceLeDeit5, JosephGesnouin6, 1BNPParibas-ITGroup-AI&ITInnovation, 2LinguaCustodia, 3NEO4J, 4GraphThinkingConsulting, 5BNPParibas-ITGroup-Production, 6BNPParibas-CashManagement"
+      },
+      {
+        "source": "BNPParibas-ITGroup-Production",
+        "relationship": "is affiliated with",
+        "target": "FabriceLeDeit",
+        "evidence": "MariamBarry1, Ga\u00ebtanCaillaut2, PierreHalftermeyer3, RaheelQader2, MehdiMouayad1, DimitriCariolaro4, FabriceLeDeit5, JosephGesnouin6, 1BNPParibas-ITGroup-AI&ITInnovation, 2LinguaCustodia, 3NEO4J, 4GraphThinkingConsulting, 5BNPParibas-ITGroup-Production, 6BNPParibas-CashManagement"
+      },
+      {
+        "source": "BNPParibas-CashManagement",
+        "relationship": "is affiliated with",
+        "target": "JosephGesnouin",
+        "evidence": "MariamBarry1, Ga\u00ebtanCaillaut2, PierreHalftermeyer3, RaheelQader2, MehdiMouayad1, DimitriCariolaro4, FabriceLeDeit5, JosephGesnouin6, 1BNPParibas-ITGroup-AI&ITInnovation, 2LinguaCustodia, 3NEO4J, 4GraphThinkingConsulting, 5BNPParibas-ITGroup-Production, 6BNPParibas-CashManagement"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_0",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "edusingFinance Bench",
+        "type": "Benchmark"
+      },
+      {
+        "name": "AI in finance",
+        "type": "Problem"
+      },
+      {
+        "name": "HybridRAG",
+        "type": "Method"
+      },
+      {
+        "name": "Digital Operational Resilience Act (DORA)",
+        "type": "Regulation"
+      },
+      {
+        "name": "European Union",
+        "type": "Concept"
+      },
+      {
+        "name": "Federal Financial Institutions Examination Council (FFIEC)",
+        "type": "Regulation"
+      },
+      {
+        "name": "GraphRAGPattern",
+        "type": "Method"
+      },
+      {
+        "name": "Hallucination",
+        "type": "Problem"
+      },
+      {
+        "name": "LLMs",
+        "type": "Model"
+      },
+      {
+        "name": "O(n2)",
+        "type": "Metric"
+      },
+      {
+        "name": "O(k\u00b7n)",
+        "type": "Metric"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "edusingFinance Bench",
+        "relationship": "evaluates",
+        "target": "HybridRAG",
+        "evidence": "evaluate HybridRAG by comparing the Digital Operational Resilience Act (DORA)..."
+      },
+      {
+        "source": "HybridRAG",
+        "relationship": "reduces",
+        "target": "hallucinations",
+        "evidence": "approaches achieve a 6% reduction in hallucinations"
+      },
+      {
+        "source": "HybridRAG",
+        "relationship": "decreases",
+        "target": "token usage",
+        "evidence": "80% decrease in token usage compared to conventional RAG methods"
+      },
+      {
+        "source": "HybridRAG",
+        "relationship": "improves",
+        "target": "computational efficiency",
+        "evidence": "significant improvement in computational efficiency"
+      },
+      {
+        "source": "GraphRAGPattern",
+        "relationship": "aligns with",
+        "target": "DORA",
+        "evidence": "comparing the Digital Operational Resilience Act (DORA) from the European Union"
+      },
+      {
+        "source": "GraphRAGPattern",
+        "relationship": "aligns with",
+        "target": "FFIEC guidelines",
+        "evidence": "and the Federal Financial Institutions Examination Council (FFIEC) guidelines"
+      },
+      {
+        "source": "Hallucination",
+        "relationship": "originates from",
+        "target": "LLMs",
+        "evidence": "Hallucination arises from LLMs\u2019 reliance on potentially outdated or domain-general training data"
+      },
+      {
+        "source": "Graph-based retrieval methods",
+        "relationship": "reduce",
+        "target": "token consumption",
+        "evidence": "decrease in token consumption"
+      },
+      {
+        "source": "Graph-based retrieval methods",
+        "relationship": "improve",
+        "target": "computational complexity",
+        "evidence": "complexity from O(n2) to O(k\u00b7n)"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_1",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [],
+    "relationships": [],
+    "chunk_id": "2025.genaik-1.6_chunk_2",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [],
+    "relationships": [],
+    "chunk_id": "2025.genaik-1.6_chunk_3",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "RAG",
+        "type": "Method"
+      },
+      {
+        "name": "Knowledge Graphs (KGs)",
+        "type": "Concept"
+      },
+      {
+        "name": "Large Language Models (LLMs)",
+        "type": "Model"
+      },
+      {
+        "name": "ashallucination",
+        "type": "Problem"
+      },
+      {
+        "name": "GenAIK",
+        "type": "Dataset"
+      },
+      {
+        "name": "TextualRelevance",
+        "type": "Concept"
+      },
+      {
+        "name": "GraphStructures",
+        "type": "Concept"
+      },
+      {
+        "name": "StructuredRelationships",
+        "type": "Concept"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Knowledge Graphs (KGs)",
+        "relationship": "guides",
+        "target": "Large Language Models (LLMs)",
+        "evidence": "KGs play a crucial role in guiding model outputs"
+      },
+      {
+        "source": "RAG",
+        "relationship": "improves relevance of",
+        "target": "Large Language Models (LLMs)",
+        "evidence": "RAG often improves the relevance of LLM outputs"
+      },
+      {
+        "source": "RAG",
+        "relationship": "neglects",
+        "target": "StructuredRelationships",
+        "evidence": "Traditional RAG often overlooks structured relationships"
+      },
+      {
+        "source": "RAG",
+        "relationship": "focuses on",
+        "target": "TextualRelevance",
+        "evidence": "integration of RAG focuses on textual relevance"
+      },
+      {
+        "source": "RAG",
+        "relationship": "focuses on",
+        "target": "GraphStructures",
+        "evidence": "integration of RAG focuses on graph structures"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_4",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [],
+    "relationships": [],
+    "chunk_id": "2025.genaik-1.6_chunk_5",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "Graph Retrieval Augmentation",
+        "type": "Method"
+      },
+      {
+        "name": "RAG",
+        "type": "Method"
+      },
+      {
+        "name": "GraphRAG",
+        "type": "Method"
+      },
+      {
+        "name": "LLMs",
+        "type": "Model"
+      },
+      {
+        "name": "Knowledge Graph",
+        "type": "Concept"
+      },
+      {
+        "name": "Query-focused summarization",
+        "type": "Problem"
+      },
+      {
+        "name": "Liu et al. (2022)",
+        "type": "Tool"
+      },
+      {
+        "name": "Guu et al. (2020)",
+        "type": "Tool"
+      },
+      {
+        "name": "Lewis et al. (2020)",
+        "type": "Tool"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Liu et al. (2022)",
+        "relationship": "introduces",
+        "target": "Graph Retrieval Augmentation",
+        "evidence": "introduces the concept of Graph Retrieval Augmentation"
+      },
+      {
+        "source": "Graph Retrieval Augmentation",
+        "relationship": "enhances",
+        "target": "LLMs",
+        "evidence": "enhances contextual and semantic understanding in LLMs"
+      },
+      {
+        "source": "RAG",
+        "relationship": "has limitation of",
+        "target": "Limited Global Context",
+        "evidence": "RAG\u2019s restricted retrieval scope hinders its ability to capture broader contexts"
+      },
+      {
+        "source": "Limited Global Context",
+        "relationship": "affects",
+        "target": "Query-focused summarization",
+        "evidence": "hinders its ability to capture broader contexts necessary for tasks like query-focused summarization"
+      },
+      {
+        "source": "Guu et al. (2020)",
+        "relationship": "illustrates",
+        "target": "Knowledge Graph",
+        "evidence": "illustrates how training in a language model with augmented retrieval with knowledge graphs can improve the accuracy and depth of the answer"
+      },
+      {
+        "source": "Knowledge Graph",
+        "relationship": "used for",
+        "target": "retrieval and structured data",
+        "evidence": "by using KG for the retrieval and structured data"
+      },
+      {
+        "source": "GraphRAG",
+        "relationship": "incorporates",
+        "target": "Knowledge Graph",
+        "evidence": "to incorporate structured relationships"
+      },
+      {
+        "source": "Lewis et al. (2020)",
+        "relationship": "associated with",
+        "target": "Query-focused summarization",
+        "evidence": "tasks like query-focused summarization (Lewis et al., 2020)"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_6",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [],
+    "relationships": [],
+    "chunk_id": "2025.genaik-1.6_chunk_7",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "KG-RAG",
+        "type": "Method"
+      },
+      {
+        "name": "RAG",
+        "type": "Method"
+      },
+      {
+        "name": "Large Language Models (LLMs)",
+        "type": "Model"
+      },
+      {
+        "name": "Retrieval-Augmented Generation (RAG)",
+        "type": "Method"
+      },
+      {
+        "name": "token efficiency",
+        "type": "Metric"
+      },
+      {
+        "name": "computational complexity",
+        "type": "Metric"
+      },
+      {
+        "name": "k",
+        "type": "Concept"
+      },
+      {
+        "name": "n",
+        "type": "Concept"
+      },
+      {
+        "name": "KNN algorithm",
+        "type": "Method"
+      },
+      {
+        "name": "document comparison tasks",
+        "type": "Problem"
+      },
+      {
+        "name": "hallucinations",
+        "type": "Problem"
+      },
+      {
+        "name": "structured knowledge",
+        "type": "Concept"
+      },
+      {
+        "name": "classical RAG",
+        "type": "Method"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "KG-RAG",
+        "relationship": "improves",
+        "target": "token efficiency",
+        "evidence": "KG-RAG significantly improves token efficiency"
+      },
+      {
+        "source": "KG-RAG",
+        "relationship": "reduces",
+        "target": "computational complexity",
+        "evidence": "KG-RAG reduces computational complexity from O(n^2) to O(k \u00b7 n)"
+      },
+      {
+        "source": "RAG",
+        "relationship": "augmented by",
+        "target": "Large Language Models (LLMs)",
+        "evidence": "LLMs augmented by Retrieval-Augmented Generation (RAG) systems"
+      },
+      {
+        "source": "KG-RAG",
+        "relationship": "compared to",
+        "target": "classical RAG",
+        "evidence": "KG-RAG compared to classical RAG for document comparison tasks"
+      },
+      {
+        "source": "KNN algorithm",
+        "relationship": "used for",
+        "target": "detecting contradictions between documents",
+        "evidence": "KNN algorithms specifically for detecting contradictions between documents"
+      },
+      {
+        "source": "hallucinations",
+        "relationship": "defined as",
+        "target": "generation of factually incorrect or fabricated information",
+        "evidence": "hallucinations defined as the generation of factually incorrect or fabricated information"
+      },
+      {
+        "source": "KG-RAG",
+        "relationship": "reduces",
+        "target": "hallucinations",
+        "evidence": "KG-RAG reduces hallucinations compared to tasks relying on structured knowledge"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_8",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "Hybrid RAG",
+        "type": "Method"
+      },
+      {
+        "name": "graph-based Hybrid RAG",
+        "type": "Method"
+      },
+      {
+        "name": "Faithfulness Score",
+        "type": "Metric"
+      },
+      {
+        "name": "F(a)",
+        "type": "Metric"
+      },
+      {
+        "name": "hallucinations",
+        "type": "Problem"
+      },
+      {
+        "name": "token consumption",
+        "type": "Metric"
+      },
+      {
+        "name": "flexible question-answering",
+        "type": "Problem"
+      },
+      {
+        "name": "pre-generation approach",
+        "type": "Method"
+      },
+      {
+        "name": "post-generation approach",
+        "type": "Method"
+      },
+      {
+        "name": "Agrawal et al., 2023",
+        "type": "Dataset"
+      },
+      {
+        "name": "open-source code",
+        "type": "Tool"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "graph-based Hybrid RAG",
+        "relationship": "is a type of",
+        "target": "Hybrid RAG",
+        "evidence": "graph-based Hybrid RAG"
+      },
+      {
+        "source": "Hybrid RAG",
+        "relationship": "addresses",
+        "target": "hallucinations",
+        "evidence": "reduce hallucinations"
+      },
+      {
+        "source": "Hybrid RAG",
+        "relationship": "optimizes",
+        "target": "token consumption",
+        "evidence": "optimizetokenconsumption"
+      },
+      {
+        "source": "Hybrid RAG",
+        "relationship": "supports",
+        "target": "flexible question-answering",
+        "evidence": "flexiblequestion-answering"
+      },
+      {
+        "source": "Faithfulness Score",
+        "relationship": "measures",
+        "target": "F(a)",
+        "evidence": "Faithfulness Score, F(a), for each answer a"
+      },
+      {
+        "source": "F(a)",
+        "relationship": "represents proportion of",
+        "target": "information directly supported by retrieved passages",
+        "evidence": "proportion of information in a that is directly supported by the retrieved passages"
+      },
+      {
+        "source": "pre-generation approach",
+        "relationship": "enhances",
+        "target": "input context",
+        "evidence": "pre-generation approach enhances the input context"
+      },
+      {
+        "source": "post-generation approach",
+        "relationship": "uses",
+        "target": "context C(q)",
+        "evidence": "post-generation(Agrawal et al., 2023). The pre-generation approach enhances the input context SupportedInformation"
+      },
+      {
+        "source": "open-source code",
+        "relationship": "provided by",
+        "target": "Hybrid RAG",
+        "evidence": "We provide open-source code"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_9",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [],
+    "relationships": [],
+    "chunk_id": "2025.genaik-1.6_chunk_10",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "RAG system",
+        "type": "Model"
+      },
+      {
+        "name": "Knowledge Graphs",
+        "type": "Concept"
+      },
+      {
+        "name": "LLM",
+        "type": "Model"
+      },
+      {
+        "name": "Hallucinations",
+        "type": "Problem"
+      },
+      {
+        "name": "Graph representations",
+        "type": "Concept"
+      },
+      {
+        "name": "Iterative LLM calls",
+        "type": "Method"
+      },
+      {
+        "name": "Faithfulness threshold",
+        "type": "Metric"
+      },
+      {
+        "name": "Post-generation approach",
+        "type": "Method"
+      },
+      {
+        "name": "Pre-generation approach",
+        "type": "Method"
+      },
+      {
+        "name": "Retrieved context",
+        "type": "Concept"
+      },
+      {
+        "name": "Graph databases",
+        "type": "Tool"
+      },
+      {
+        "name": "Classical RAG system",
+        "type": "Model"
+      },
+      {
+        "name": "F(a)",
+        "type": "Metric"
+      },
+      {
+        "name": "\u03b4 (delta)",
+        "type": "Metric"
+      },
+      {
+        "name": "Computational costs",
+        "type": "Problem"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "RAG system",
+        "relationship": "faces challenges from",
+        "target": "Post-generation approach",
+        "evidence": "post-generation faces challenges such as converting text to graph representations and computational costs of iterative LLM calls"
+      },
+      {
+        "source": "Iterative LLM calls",
+        "relationship": "increase",
+        "target": "Computational costs",
+        "evidence": "iterative calls to LLMs increase computational costs, making large-scale applications impractical"
+      },
+      {
+        "source": "Pre-generation approach",
+        "relationship": "aims to reduce",
+        "target": "Hallucinations",
+        "evidence": "our work focuses on the pre-generation approach, aiming to reduce hallucinations"
+      },
+      {
+        "source": "Knowledge Graphs",
+        "relationship": "provide",
+        "target": "Retrieved context",
+        "evidence": "using KGs to provide more accurate and reliable context before generation"
+      },
+      {
+        "source": "Graph-based RAG System",
+        "relationship": "enhances",
+        "target": "Classical RAG system",
+        "evidence": "we propose to enhance the classical RAG system with knowledge from graph databases"
+      },
+      {
+        "source": "F(a)",
+        "relationship": "measures",
+        "target": "Faithfulness",
+        "evidence": "F(a) \u2265 \u03b4 where \u03b4 is a predefined faithfulness threshold ensuring each generated answer is primarily supported by the retrieved context C(q)"
+      },
+      {
+        "source": "Classical RAG system",
+        "relationship": "uses",
+        "target": "Raw texts",
+        "evidence": "enhance the classical RAG system with knowledge from graph databases instead of raw texts"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_11",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "Retrieval-Augmented Generation (RAG) system",
+        "type": "Method"
+      },
+      {
+        "name": "Facts variant",
+        "type": "Method"
+      },
+      {
+        "name": "KG-RAG",
+        "type": "Method"
+      },
+      {
+        "name": "TextRAG model",
+        "type": "Model"
+      },
+      {
+        "name": "GitHub repository",
+        "type": "Tool"
+      },
+      {
+        "name": "Python package",
+        "type": "Tool"
+      },
+      {
+        "name": "documents D",
+        "type": "Dataset"
+      },
+      {
+        "name": "user queries Q",
+        "type": "Dataset"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "Retrieval-Augmented Generation (RAG) system",
+        "relationship": "has baseline",
+        "target": "Retrieval-Augmented Generation (RAG) system",
+        "evidence": "RAG system to serve as a baseline"
+      },
+      {
+        "source": "Retrieval-Augmented Generation (RAG) system",
+        "relationship": "has variant",
+        "target": "Facts variant",
+        "evidence": "two graph-flavored variants, which we call Facts"
+      },
+      {
+        "source": "Retrieval-Augmented Generation (RAG) system",
+        "relationship": "has variant",
+        "target": "KG-RAG",
+        "evidence": "graph-flavored variants, which we call ... KG-RAG"
+      },
+      {
+        "source": "TextRAG model",
+        "relationship": "generates",
+        "target": "hallucinations",
+        "evidence": "hallucinations occur when the language model generates content that is actually incorrect or unsupported"
+      },
+      {
+        "source": "GitHub repository",
+        "relationship": "hosts",
+        "target": "Retrieval-Augmented Generation (RAG) system",
+        "evidence": "Reproducibility Code for both text and facts RAG ... are available on GitHub"
+      },
+      {
+        "source": "Python package",
+        "relationship": "extracts",
+        "target": "non-structured data",
+        "evidence": "Python package to extract non-structured"
+      },
+      {
+        "source": "documents D",
+        "relationship": "used in",
+        "target": "Retrieval-Augmented Generation (RAG) system",
+        "evidence": "set of documents D = {d ,d ,...,d }"
+      },
+      {
+        "source": "user queries Q",
+        "relationship": "used in",
+        "target": "Retrieval-Augmented Generation (RAG) system",
+        "evidence": "set of user queries Q = {q ,q ,...,q }"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_12",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "unstructured2 Python package",
+        "type": "Tool"
+      },
+      {
+        "name": "all-MiniLM-L6-v2 model",
+        "type": "Model"
+      },
+      {
+        "name": "sentence-transformers",
+        "type": "Concept"
+      },
+      {
+        "name": "Reimers",
+        "type": "Concept"
+      },
+      {
+        "name": "Gurevych,2019",
+        "type": "Concept"
+      },
+      {
+        "name": "chromadb4",
+        "type": "Tool"
+      },
+      {
+        "name": "FactsRAG",
+        "type": "Method"
+      },
+      {
+        "name": "LLM",
+        "type": "Method"
+      },
+      {
+        "name": "HallucinationScore",
+        "type": "Metric"
+      },
+      {
+        "name": "RAG system",
+        "type": "Method"
+      },
+      {
+        "name": "embedding",
+        "type": "Concept"
+      },
+      {
+        "name": "retrievedcontext",
+        "type": "Concept"
+      },
+      {
+        "name": "retrieveddocuments",
+        "type": "Concept"
+      },
+      {
+        "name": "C(q)",
+        "type": "Concept"
+      },
+      {
+        "name": "D",
+        "type": "Dataset"
+      },
+      {
+        "name": "Q",
+        "type": "Concept"
+      },
+      {
+        "name": "A",
+        "type": "Concept"
+      },
+      {
+        "name": "evaluation",
+        "type": "Concept"
+      },
+      {
+        "name": "finance",
+        "type": "Concept"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "unstructured2 Python package",
+        "relationship": "extracts",
+        "target": "entities and relations from raw text",
+        "evidence": "extract entities and relations from raw text"
+      },
+      {
+        "source": "all-MiniLM-L6-v2 model",
+        "relationship": "embeds",
+        "target": "Q \u2192 A",
+        "evidence": "we used the all-MiniLM-L6-v2 model to embed them"
+      },
+      {
+        "source": "sentence-transformers",
+        "relationship": "provides",
+        "target": "all-MiniLM-L6-v2 model",
+        "evidence": "provided by sentence-transformers and Gurevych,2019"
+      },
+      {
+        "source": "chromadb4",
+        "relationship": "stores",
+        "target": "answer a",
+        "evidence": "stored ... inside a chromadb4 database"
+      },
+      {
+        "source": "FactsRAG",
+        "relationship": "defines",
+        "target": "evaluation",
+        "evidence": "FactsRAG define the below evaluation"
+      },
+      {
+        "source": "LLM",
+        "relationship": "measures",
+        "target": "HallucinationScore",
+        "evidence": "Our second system relies on LLM to automatically measure: HallucinationScore, H(a)"
+      },
+      {
+        "source": "RAG system",
+        "relationship": "is",
+        "target": "function RAG",
+        "evidence": "We define a RAG system as a function RAG"
+      },
+      {
+        "source": "embedding",
+        "relationship": "based_on",
+        "target": "retrievedcontext",
+        "evidence": "embed them ... based on retrieved context C"
+      },
+      {
+        "source": "retrievedcontext",
+        "relationship": "subset_of",
+        "target": "D",
+        "evidence": "C \u2286 D"
+      },
+      {
+        "source": "retrieveddocuments",
+        "relationship": "retrieved_for",
+        "target": "query q",
+        "evidence": "C(q) = {c,...} represent the set of ... retrieved documents for a query q"
+      },
+      {
+        "source": "evaluation",
+        "relationship": "measures",
+        "target": "HallucinationScore",
+        "evidence": "measures: HallucinationScore, H(a)"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_13",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "llm-graph-builder",
+        "type": "Tool"
+      },
+      {
+        "name": "Neo4j",
+        "type": "Tool"
+      },
+      {
+        "name": "knowledge graph",
+        "type": "Concept"
+      },
+      {
+        "name": "text chunks",
+        "type": "Concept"
+      },
+      {
+        "name": "embeddings",
+        "type": "Concept"
+      },
+      {
+        "name": "graph schema",
+        "type": "Concept"
+      },
+      {
+        "name": "HallucinationScore",
+        "type": "Metric"
+      },
+      {
+        "name": "UnsupportedInformation",
+        "type": "Concept"
+      },
+      {
+        "name": "TotalInformation",
+        "type": "Concept"
+      },
+      {
+        "name": "sentence-transformers",
+        "type": "Tool"
+      },
+      {
+        "name": "financebench-graph-rag",
+        "type": "Dataset"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "llm-graph-builder",
+        "relationship": "extracts",
+        "target": "knowledge graph",
+        "evidence": "llm-graph-builder tool from Neo4j to extract a knowledge graph from pdf files"
+      },
+      {
+        "source": "Neo4j",
+        "relationship": "provides",
+        "target": "llm-graph-builder",
+        "evidence": "llm-graph-builder tool from Neo4j"
+      },
+      {
+        "source": "knowledge graph",
+        "relationship": "stored in",
+        "target": "text chunks",
+        "evidence": "text chunks and their embeddings are stored inside a node and linked to the entities they contain"
+      },
+      {
+        "source": "knowledge graph",
+        "relationship": "linked to",
+        "target": "embeddings",
+        "evidence": "text chunks and their embeddings are stored inside a node and linked to the entities they contain"
+      },
+      {
+        "source": "graph schema",
+        "relationship": "generated by",
+        "target": "llm-graph-builder",
+        "evidence": "tool can also automatically generate a graph schema from raw text"
+      },
+      {
+        "source": "HallucinationScore",
+        "relationship": "measures",
+        "target": "UnsupportedInformation",
+        "evidence": "HallucinationScore H(a) as the proportion of information in a unsupported by C(q)"
+      },
+      {
+        "source": "sentence-transformers",
+        "relationship": "used to extract",
+        "target": "knowledge graph",
+        "evidence": "processed to extract a knowledge graph, given a pre-defined graph schema"
+      },
+      {
+        "source": "financebench-graph-rag",
+        "relationship": "evaluates",
+        "target": "HallucinationScore",
+        "evidence": "financebench-graph-rag a \u2208 A as the proportion of information in a"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_14",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "awtext",
+        "type": "Dataset"
+      },
+      {
+        "name": "Section5",
+        "type": "Section"
+      },
+      {
+        "name": "user's query",
+        "type": "Concept"
+      },
+      {
+        "name": "traditional embeddings similarity",
+        "type": "Method"
+      },
+      {
+        "name": "graph",
+        "type": "Concept"
+      },
+      {
+        "name": "triples",
+        "type": "Concept"
+      },
+      {
+        "name": "PageRank",
+        "type": "Algorithm"
+      },
+      {
+        "name": "HybridRAG",
+        "type": "System"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "awtext",
+        "relationship": "used to extract",
+        "target": "schema",
+        "evidence": "awtext, so we use the questions in our dataset (more details in Section5) to extract a schema"
+      },
+      {
+        "source": "user's query",
+        "relationship": "used to find",
+        "target": "relevant chunks",
+        "evidence": "we use the user's query to find the most relevant chunks using traditional embeddings similarity"
+      },
+      {
+        "source": "relevant chunks",
+        "relationship": "used as seed to explore",
+        "target": "graph",
+        "evidence": "we explore the graph using the chunks as seed to retrieve potentially useful entities and relations"
+      },
+      {
+        "source": "triples",
+        "relationship": "built using",
+        "target": "text and extracted entities",
+        "evidence": "we build triples using the text and the extracted entities"
+      },
+      {
+        "source": "triples",
+        "relationship": "converted to",
+        "target": "short sentences",
+        "evidence": "The last system we experimented with aims to convert these triples into short sentences"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_15",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "HybridRAG",
+        "type": "Method"
+      },
+      {
+        "name": "GraphRAG framework",
+        "type": "Method"
+      },
+      {
+        "name": "explicit retrieval methods",
+        "type": "Method"
+      },
+      {
+        "name": "implicit retrieval methods",
+        "type": "Method"
+      },
+      {
+        "name": "relevant chunks",
+        "type": "Concept"
+      },
+      {
+        "name": "facts",
+        "type": "Concept"
+      },
+      {
+        "name": "LLM",
+        "type": "Tool"
+      },
+      {
+        "name": "hybrid architecture",
+        "type": "Concept"
+      },
+      {
+        "name": "explicit relationships",
+        "type": "Concept"
+      },
+      {
+        "name": "implicit relationships",
+        "type": "Concept"
+      },
+      {
+        "name": "retrieval-augmented generation (RAG) systems",
+        "type": "Method"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "HybridRAG",
+        "relationship": "uses",
+        "target": "hybrid architecture",
+        "evidence": "This system is very the knowledge graph using a hybrid architecture."
+      },
+      {
+        "source": "HybridRAG",
+        "relationship": "leverages",
+        "target": "explicit relationships",
+        "evidence": "We call leverage explicit and implicit relationships from these sentences facts."
+      },
+      {
+        "source": "HybridRAG",
+        "relationship": "leverages",
+        "target": "implicit relationships",
+        "evidence": "We call leverage explicit and implicit relationships from these sentences facts."
+      },
+      {
+        "source": "GraphRAG framework",
+        "relationship": "combines",
+        "target": "explicit retrieval methods",
+        "evidence": "We introduce a GraphRAG framework that combines explicit (symbolic) and implicit (sub-symbolic) retrieval methods"
+      },
+      {
+        "source": "GraphRAG framework",
+        "relationship": "combines",
+        "target": "implicit retrieval methods",
+        "evidence": "We introduce a GraphRAG framework that combines explicit (symbolic) and implicit (sub-symbolic) retrieval methods"
+      },
+      {
+        "source": "GraphRAG framework",
+        "relationship": "enhances",
+        "target": "retrieval-augmented generation (RAG) systems",
+        "evidence": "Our approach allows for adaptive retrieval based on the nature of the user question, with ExplicitRAG using"
+      },
+      {
+        "source": "LLM",
+        "relationship": "extracts",
+        "target": "entities",
+        "evidence": "we first ask an LLM to extract all entities inside a relevant chunk"
+      },
+      {
+        "source": "LLM",
+        "relationship": "extracts",
+        "target": "relations",
+        "evidence": "we first ask an LLM to extract all entities inside a relevant chunk, then we ask for the relations between them"
+      },
+      {
+        "source": "relevant chunks",
+        "relationship": "converts",
+        "target": "facts",
+        "evidence": "we first ask an LLM to extract all entities inside a relevant chunk, then we ask for the relations between them. Finally, the LLM generates the triple in natural language inside a JSON array"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_16",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "ptiveretrieval",
+        "type": "Method"
+      },
+      {
+        "name": "ExplicitRAG",
+        "type": "Method"
+      },
+      {
+        "name": "ImplicitRAG",
+        "type": "Method"
+      },
+      {
+        "name": "context-to-Cypher translation",
+        "type": "Method"
+      },
+      {
+        "name": "LLM",
+        "type": "Tool"
+      },
+      {
+        "name": "HybridRAG",
+        "type": "Method"
+      },
+      {
+        "name": "Zhang and Soh",
+        "type": "Concept"
+      },
+      {
+        "name": "Carta et al.",
+        "type": "Concept"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "ptiveretrieval",
+        "relationship": "is based on",
+        "target": "the triple in natural language inside a JSON structure of the user question",
+        "evidence": "ing the triple in natural language inside a JSON"
+      },
+      {
+        "source": "ExplicitRAG",
+        "relationship": "uses",
+        "target": "array",
+        "evidence": "with ExplicitRAG using array"
+      },
+      {
+        "source": "ImplicitRAG",
+        "relationship": "leverages",
+        "target": "vectorsimilarity",
+        "evidence": "ImplicitRAG leverages vectorsimilarity"
+      },
+      {
+        "source": "context-to-Cypher translation",
+        "relationship": "is for",
+        "target": "structured queries",
+        "evidence": "context-to-Cypher translation for structured queries"
+      },
+      {
+        "source": "LLM",
+        "relationship": "is used to",
+        "target": "determine the optimal retrieval method",
+        "evidence": "The system employs an LLM to determine the optimal retrieval method"
+      },
+      {
+        "source": "HybridRAG",
+        "relationship": "is tested with",
+        "target": "comparative analysis of two regulatory documents",
+        "evidence": "Our approach to HybridRAG is tested with a comparative analysis of two regulatory documents"
+      },
+      {
+        "source": "Zhang and Soh",
+        "relationship": "is cited in",
+        "target": "methods",
+        "evidence": "methods (Zhang and Soh, 2024; Carta et al., 2023)"
+      },
+      {
+        "source": "Carta et al.",
+        "relationship": "is cited in",
+        "target": "methods",
+        "evidence": "methods (Zhang and Soh, 2024; Carta et al., 2023)"
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_17",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [],
+    "relationships": [],
+    "chunk_id": "2025.genaik-1.6_chunk_18",
+    "source": "2025.genaik-1.6.txt"
+  },
+  {
+    "entities": [
+      {
+        "name": "KG-RAG",
+        "type": "Method"
+      },
+      {
+        "name": "Retrieval-Augmented Generation (RAG)",
+        "type": "Method"
+      },
+      {
+        "name": "guidelinesforITmanagementinU.S.financialinstitutions",
+        "type": "Dataset"
+      },
+      {
+        "name": "DeepEval",
+        "type": "Tool"
+      },
+      {
+        "name": "Faithfulness Metric",
+        "type": "Metric"
+      },
+      {
+        "name": "Hallucinations measures",
+        "type": "Metric"
+      },
+      {
+        "name": "Symbolic Retrieval",
+        "type": "Method"
+      },
+      {
+        "name": "Sub-Symbolic Retrieval",
+        "type": "Method"
+      }
+    ],
+    "relationships": [
+      {
+        "source": "KG-RAG",
+        "relationship": "based on",
+        "target": "guidelinesforITmanagementinU.S.financialinstitutions",
+        "evidence": "The document is a graph representation of the document to be queried."
+      },
+      {
+        "source": "guidelinesforITmanagementinU.S.financialinstitutions",
+        "relationship": "used to assess performance of",
+        "target": "KG-RAG",
+        "evidence": "These datasets were used to assess the performance of the proposed methods in financial document retrieval and contradiction detection."
+      },
+      {
+        "source": "guidelinesforITmanagementinU.S.financialinstitutions",
+        "relationship": "used to assess performance of",
+        "target": "Retrieval-Augmented Generation (RAG)",
+        "evidence": "These datasets were used to assess the performance of the proposed methods in financial document retrieval and contradiction detection."
+      },
+      {
+        "source": "DeepEval",
+        "relationship": "uses",
+        "target": "Faithfulness Metric",
+        "evidence": "We will use the metrics of DeepEval to evaluate RQ1."
+      },
+      {
+        "source": "Faithfulness Metric",
+        "relationship": "uses",
+        "target": "LLM",
+        "evidence": "The Faithfulness Metric first uses an LLM to extract all claims made in the actual output."
+      },
+      {
+        "source": "Faithfulness Metric",
+        "relationship": "classifies",
+        "target": "claims",
+        "evidence": "The Faithfulness Metric first uses an LLM to extract all claims made in the actual output, before using the same LLM to classify whether each claim is truthful."
+      }
+    ],
+    "chunk_id": "2025.genaik-1.6_chunk_19",
+    "source": "2025.genaik-1.6.txt"
+  }
+]

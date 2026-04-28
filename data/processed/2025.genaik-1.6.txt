@@ -1,0 +1,847 @@
+GraphRAG: Leveraging Graph-Based Efficiency to Minimize
+Hallucinations in LLM-Driven RAG for Finance Data
+MariamBarry1,GaëtanCaillaut2,PierreHalftermeyer3,RaheelQader2,
+MehdiMouayad1,DimitriCariolaro4,FabriceLeDeit5,JosephGesnouin6,
+1BNPParibas-ITGroup-AI&ITInnovation,2LinguaCustodia,3NEO4J,
+4GraphThinkingConsulting,5BNPParibas-ITGroup-Production,6BNPParibas-CashManagement
+Abstract
+This study explores the integration of graph-
+basedmethodsintoRetrieval-AugmentedGen-
+eration(RAG)systemstoenhanceefficiency,
+reducehallucinations,andimproveexplainabil-
+ity,withaparticularfocusonfinancialandreg-
+ulatory document retrieval. We propose two
+strategies—FactRAGandHybridRAG—which
+leverage knowledge graphs to improve RAG
+performance. ExperimentsconductedusingFi-
+nance Bench, a benchmark for AI in finance,
+demonstrate that these approaches achieve a
+6% reduction in hallucinations and an 80%
+decreaseintokenusagecomparedtoconven-
+tionalRAGmethods.Furthermore,weevaluate
+HybridRAGbycomparingtheDigitalOpera-
+tionalResilienceAct(DORA)fromtheEuro-
+Figure1: GraphRAGPattern(Rathle)
+peanUnionwiththeFederalFinancialInstitu-
+tionsExaminationCouncil(FFIEC)guidelines
+from the United States. The results reveal a
+significantimprovementincomputationaleffi- Hallucination arises from LLMs’ reliance on po-
+ciency,reducingcontradictiondetectioncom-
+tentiallyoutdatedordomain-generaltrainingdata,
+plexityfromO(n2)toO(k·n)—wherenisthe
+leadingtoinaccuraciesinreal-worldapplications
+numberofchunks—andaremarkable734-fold
+whereprecisioniscritical(Dzirietal.,2022).
+decreaseintokenconsumption. Graph-based
+retrieval methods can improve the efficiency Toaddresstheissueofhallucinations,Retrieval-
+andcost-effectivenessoflargelanguagemodel Augmented Generation (RAG) has emerged as a
+(LLM)applications,thoughtheirperformance
+promising approach. Introduced by Lewis et al.
+andtokenusagedependonthedataset,knowl-
+(2020), RAG combines a retriever that identifies
+edgegraphdesign,andretrievaltask.
+relevant documents and a generator that creates
+coherentresponsesfromthisinformation. Bycom-
+1 Introduction
+biningLLMswithexternalknowledgebases,RAG
+GenerativeArtificialIntelligence(GenAI),exem- systems can enhance response accuracy and rele-
+plified by Large Language Models (LLMs) such vancebydynamicallyincorporatingup-to-dateand
+asOpenAI’sGPTseries(Brownetal.,2020;Ope- verifiableinformationintogeneratedoutputs(Kang
+nAI,2023),Meta’sLLaMAmodels(Touvronetal., andLee,2023). Theoriginalapproachsuggested
+2023),andMistral’sMixtral(AI,2023),hasgained dividingdocumentsinto100-worddisjointchunks,
+prominenceinvariousfields,includinghealthcare, butthiscandisruptsemanticsandleadtohalluci-
+finance,andeducation. Thesemodels,whilehighly nations,asnotedbyQianetal.(2024). Tomitigate
+capableofproducingcoherentandcontextuallyrel- these issues, enhancements like sliding window
+evantresponses,facechallengesingeneratingfac- chunking, sentence-level splitting with surround-
+tuallyaccuratecontent—aphenomenonreferredto ing context, and incorporating metadata such as
+ashallucination(Jietal.,2023;Bangetal.,2023). documenttitleshavebeenproposedtoimprovethe
+54
+ProceedingsoftheGenerativeAIandKnowledgeGraphWorkshop(GenAIK),pages54–65
+January19,2025.©2025InternationalCommitteeonComputationalLinguistics(ICCL)
+qualityandrelevanceofthegeneratedoutputs(Gao 2 RelatedWork
+etal.,2023).
+WhileRAGoftenimprovestherelevanceoflan- Knowledge Graphs (KGs) play a crucial role in
+guagemodeloutputs,itfacesnotablelimitationsin enhancingtheinterpretabilityandfactualaccuracy
+real-worldapplications: of large language models (LLMs) by structuring
+information as entities and relationships (Hogan
+1. NeglectofStructuredRelationships: Tradi-
+etal.,2022;Rosinetal.,2022). Theintegrationof
+tionalRAGfocusesontextualrelevanceand
+graphstructureswithinRetrieval-AugmentedGen-
+oftenoverlooksstructuredrelationshipscriti-
+eration(RAG)frameworkshasshownsignificant
+calindomainslikecitationnetworks,limiting
+improvements in model performance. Zhao et al.
+itseffectivenessforcomplex,interconnected
+(2023) demonstrate that Graph-based Retrieval-
+data(Yaoetal.,2021).
+Augmented Generation enhances contextual ac-
+curacy by allowing systems to retrieve relevant
+2. Redundancy and Lengthy Contexts: Con-
+entities and relationships from KGs. Similarly,
+catenated text snippets in RAG can lead to
+Yasunaga et al. (2022) highlights the benefits of
+redundancy and excessively lengthy inputs,
+Graph-basedRetrieval-AugmentedLanguageMod-
+causingthemodeltolosefocusandobscure
+elsforfactverificationandknowledgeenrichment,
+keyinformation(Longpreetal.,2021).
+ensuring that generated outputs are relevant and
+3. Limited Global Context: RAG’s restricted accurate. Liu et al. (2022) introduces the con-
+retrieval scope hinders its ability to capture ceptofGraphRetrievalAugmentation,whichen-
+broader contexts necessary for tasks like hancescontextualandsemanticunderstandingin
+query-focused summarization (Lewis et al., LLMs, resulting in more coherent and pertinent
+2020). responses. Furthermore, the work of Guu et al.
+(2020)illustrateshowtraininginalanguagemodel
+These limitations highlight the need for ad-
+with augmented retrieval with knowledge graphs
+vancedapproaches,suchasGraphRAG(Figure1),
+canimprovetheaccuracyanddepthoftheanswer
+to incorporate structured relationships and pro-
+byusingKGfortheretrievalandstructureddata.
+vide richer, more contextually accurate informa-
+Graph RAG stands out by retrieving graph ele-
+tion,whilebeingmoreefficientintermsoftoken
+ments from a pre-constructed knowledge graph,
+usage. Toovercometheselimitations,weexplore
+therebyenrichingLLM-generatedresponseswith
+severaldistinctapproachestoenhancingRAGsys-
+structured knowledge (Rosin et al., 2022). This
+temswithgraphs,including:
+structure allows Graph RAG to capture semantic
+nuances, maintain contextual coherence, and re-
+1. FactRAG: We propose a graph-based ap-
+duceverbosity,makingitparticularlyeffectivefor
+proach,"FactRAG,"foraquestion-answering
+applicationsinquestion-answering,recommenda-
+searchenginethatismoreefficientintermof
+tion systems, and complex information retrieval
+tokensandreduceshallucinationscompared
+tasksrelyingonstructuredknowledge.
+toclassicalRAG.
+2. KG-RAG:Weintroduceaknowledgegraph-
+3 ProblemStatement
+enhanced technique, "KG-RAG," for docu-
+mentcomparisontasks,thatsignificantlyim-
+Large Language Models (LLMs) augmented by
+proves token efficiency and reduces compu-
+tational complexity from O(n2) to O(k ·n) Retrieval-AugmentedGeneration(RAG)systems
+haveadvancedtheabilitytogeneratecontextually
+inLLM-drivenretrievaltasks,wherenisthe
+relevantresponses. However,despiteRAG’spoten-
+numberofchunks/nodesandkthenumberof
+tialtoreduceinaccuraciesbyintegratingexternal
+clustersintheKNNalgorithmsspecificallyfor
+knowledge,hallucinations–definedasthegenera-
+detectingcontradictionsbetweendocuments.
+tionoffactuallyincorrectorfabricatedinformation
+3. HybridRAG:Weprovideopen-sourcecode – remain a significant issue. This paper explores
+for a graph-based Hybrid RAG, which inte- therelevanceofagraph-basedapproachtoreduce
+gratessymbolicandsub-symbolicretrievalfor hallucinationsandoptimizetokenconsumptionin
+flexiblequestion-answering. languagemodels.
+55
+3.1 Graph-basedtechnique 2. Faithfulness Score, F(a), for each answer
+a ∈ A as the proportion of information in
+Weidentifytwokeyapproachestominimizinghal-
+a that is directly supported by the retrieved
+lucinationsinRAGsystems: pre-generationand
+contextC(q):
+post-generation(Agrawal et al., 2023). The pre-
+generation approach enhances the input context SupportedInformationina
+F(a) = = 1−H(a)
+withhigh-quality, semanticallyrelevantpassages TotalInformationina
+to help the model produce accurate outputs. The
+Objective We aim to minimize the overall hal-
+post-generationapproach,ontheotherhand,vali-
+lucination rate H(A) across all answers A =
+datesandcorrectsfactualaccuracyusingverifica-
+{a ,a ,...,a } while ensuring that each a ∈ A
+tionprocesses(Sansfordetal.,2024). 1 2 m
+remainsrelevanttothequeryq. Thisobjectivecan
+Knowledge graphs (KGs) support both ap-
+beformulatedas:
+proaches by providing structured knowledge. In
+pre-generation,KGscaninsertaccuratefactsinto m
+1 (cid:88)
+the input context. In post-generation, KGs help min H(A) = H(a i )
+RAG m
+validategeneratedcontentforfactualcorrectness. i=1
+However,post-generationfaceschallengessuch subjectto:
+asconvertingtexttographrepresentationsandthe
+F(a ) ≥ δ ∀a ∈ A
+i i
+computationalcostsofiterativeLLMcalls(Cabot
+etal.,2023). Additionally,post-generationcorrec- where δ is a predefined faithfulness threshold
+tions may introduce further errors, and the itera- (e.g.,0.9),ensuringthateachgeneratedansweris
+tive calls to LLMs increase computational costs, primarilysupportedbytheretrievedcontextC(q).
+makinglarge-scaleapplicationsimpractical. Given
+4 Proposal: Graph-basedRAGSystem
+these limitations, our work focuses on the pre-
+generation approach, aiming to reduce hallucina- WeproposetoenhancetheclassicalRAGsystem
+tionsbyusingKGstoprovidemoreaccurateand with knowledge from graph databases instead of
+reliablecontextbeforegeneration,improvingboth raw texts. Tothisaim, webuild atraditionaltext
+factualaccuracyandefficiencyinRAGsystems. RAGsystemtoserveasabaseline,aswellastwo
+graph-flavored variants, which we call Facts and
+3.2 Problemformalization-BuildingaRAG
+KG-RAGinthefollowing.
+systemwithminimalhallucinations
+ReproducibilityCodeforbothtextandfactsRAG
+In Retrieval-Augmented Generation (RAG) sys- areavailableonGithub1.
+tems, hallucinations occur when the language
+4.1 TextRAG
+modelgeneratescontentthatisfactuallyincorrect
+or unsupported by retrieved documents. Given a Our text baseline is very classical, we set up
+set of documentsD = {d ,d ,...,d } and a set a standard RAG pipeline. We relied on the
+1 2 n
+of user queries Q = {q ,q ,...,q }, the goal is unstructured2 Python package to extract non-
+1 2 m
+todesignaRAGsystemthatminimizesthegener- overlappingchunksofapproximately500charac-
+ationofhallucinatedresponseswhilemaximizing ters and we used the all-MiniLM-L6-v2 model
+responseaccuracy. providedbysentence-transformers3 (Reimers
+We define a RAG system as a function RAG : andGurevych,2019)toembedthem. Westoredthe
+Q → A,whereeachqueryq ∈ Qismappedtoan chunks and their embedding inside a chromadb4
+answera ∈ AbasedonretrievedcontextC ⊆ D. database.
+Let C(q) = {c ,c ,...,c } represent the set of
+1 2 k
+4.2 FactsRAG
+retrieveddocumentsforaqueryq,whereC(q) ⊆
+D. Es et al. (2023) define the below evaluation OursecondsystemrelyonLLMtoautomatically
+measures: extract entities and relations from raw text, then
+1https://github.com/gcaillaut/
+1. HallucinationScore,H(a),foreachanswer
+financebench-graph-rag
+a ∈ A as the proportion of information in a 2https://github.com/Unstructured-IO/
+thatisunsupportedbyC(q): unstructured
+3https://github.com/UKPLab/
+UnsupportedInformationina sentence-transformers
+H(a) = 4https://github.com/chroma-core/chroma
+TotalInformationina
+56
+processedtoextractaknowledgegraph,givenapre-
+definedgraphschema. Then,textchunksandtheir
+embeddingsarestoredinsideanodeandlinkedto
+theentitiestheycontain. Morespecifically,werely
+on the llm-graph-builder tool from Neo4j5 to
+extractaknowledgegraphfrompdffiles. Thetool
+can also automatically generate a graph schema
+fromrawtext,soweusethequestionsinourdataset
+(moredetailsinSection5)toextractaschemasuit-
+ingourtargettask.
+Finally,weusetheuser’squerytofindthemost
+relevantchunksusingtraditionalembeddingsimi-
+larity,thenweexplorethegraphusingthechunks
+as seed to retrieve potentially useful entities and
+relations,intheformoftriples. Welimittheexplo-
+ration of the graph to the direct neighbors of the
+relevantchunks,butmoresophisticatedexploration
+Figure 2: Facts extraction process. We first extract strategies are possible, such as re-ranking docu-
+entities from a raw and potentially noisy text. Then
+ments using graph-based algorithms like PageR-
+webuildtriplesusingthetextandtheextractedentities.
+ank.
+Finally, wegeneratetextualdescriptionofthetriples,
+whichwecallfacts.
+4.4 HybridRAG
+The last system we experimented with aims to
+convertthesetriplesintoshortsentences. Wecall
+leverage explicit and implicit relationships from
+these sentences facts. Hence, this system is very
+theknowledgegraphusinganhybridarchitecture.
+similartoourbaseline,thedifferencebeinganad-
+AsillustratedinFigure3.
+ditionalsteptoconvertrelevantchunksintofacts.
+We introduce a GraphRAG framework that
+Practicallyspeaking,wefirstaskanLLMtoextract
+combines explicit (symbolic) and implicit (sub-
+allentitiesinsidearelevantchunk,thenweaskfor
+symbolic) retrieval methods to enhance retrieval-
+therelationsbetweenthem. Finally,theLLMgen-
+augmented generation (RAG) systems. Our ap-
+eratetriplesandashortsentence(thefact)describ-
+proachallowsforadaptiveretrievalbasedonthena-
+ing the triple in natural language inside a JSON
+tureoftheuserquestion,withExplicitRAGusing
+array. Theresultingsentencesaremuchmorecon-
+text-to-Cypher translation for structured queries,
+cise, contain less noise, and are more direct. We
+whileImplicitRAGleveragesvectorsimilarityto
+thenprovidethesegeneratedfactstotheLLMin-
+findk-nearestneighbours. Thesystememploysan
+steadoftherawchunks. Thecompletepromptwe
+LLMtodeterminetheoptimalretrievalmethod,uti-
+usedtogeneratethesefactsisgiveninAppendixC
+lizingtheretrievedcontexttogenerateprecisean-
+andtheoverallprocessisdescribedinFigure2.
+swers,offeringaversatilesolutionforbetterknowl-
+Thepurposeofthissystemistovalidatetherel-
+edgeretrievaltasks.
+evanceofLLM-basedknowledgegraphextraction
+Our approach to HybridRAG is tested with a
+methods(ZhangandSoh,2024;Cartaetal.,2023)
+comparativeanalysisoftworegulatorydocuments:
+inthecontextof RAG.Whilewepointed outthe
+the Digital Operational Resilience Act (DORA)
+limitationsoftheseapproachesintheprevioussec-
+fromtheEuropeanUnionandtheFederalFinancial
+tion, we also believe that extracting graphs from
+InstitutionsExaminationCouncil(FFIEC)guide-
+text is a powerful summarization and noise filter-
+linesfromtheUnitedStates.
+ing tool, as it removes all uninformative tokens
+TheHybridRAGsystemisdesignedtooptimize
+andthefactsgeneratedareveryclearandeasyto
+the retrieval and contradiction identification pro-
+understand.
+cessinlargeregulatorydocumentsusingaknowl-
+edgegraph-basedKNNclusteringapproach. Tra-
+4.3 KG-RAG(KnowledgeGraphbasedRAG)
+ditional Retrieval-Augmented Generation (RAG)
+Ourthirdsystemisbasedonagraphrepresentation
+of the document to be queried. The document is 5https://llm-graph-builder.neo4jlabs.com/
+57
+guidelinesforITmanagementinU.S.financialin-
+stitutions. Thesedatasetswereusedtoassessthe
+performanceoftheproposedmethodsinfinancial
+documentretrievalandcontradictiondetection.
+5.2 Metrics
+WewillusethemetricsofDeepEval(AI,2024)to
+evaluateRQ1. Sincewearenotinterestedinassess-
+ingtheoverallRAGqualityortheretrievalmecha-
+nism,butrathertheprobabilitytohallucinate,we
+focusedonthetwohallucinationsmeasuresavail-
+able in DeepEval. The Faithfulness Metric first
+usesanLLMtoextractallclaimsmadeintheac-
+Figure3: HybridGraphRAG:Explicitvs. Implicit
+tual_output,beforeusingthesameLLMtoclassify
+RAG,e.gSymbolicvs. Sub-SymbolicRetrieval. The
+whether each claim is truthful based on the facts
+frameworkofferstworetrievalstrategiesbasedonthe
+presented in the retrieval_context. The Halluci-
+natureoftheuser’squery.
+nation metric employs an LLM to evaluate each
+context in a set of contexts, determining whether
+methodsoftensufferfromhightokenconsumption thereareanycontradictionswiththeactual_output.
+due to the computationally expensive Cartesian Themetricsarecalculatedaccordingtothefol-
+productofdocumentsegments. Toovercomethis, lowingequation:
+HybridRAG uses KNN clustering to group simi-
+lar document segments, reducing computational
+costs. The system captures the context for each NumberofTruthfulClaims
+Faithfulness = (1)
+document node, generates text embeddings, and TotalNumberofClaims
+clustersnodesbasedoncosinesimilarity.
+the Number of Truthful Claims represents the
+5 Experimentsandevaluation countofaccuratestatements,andtheTotalNumber
+of Claims represents the overall number of state-
+Weconductedexperimentstoaddressthefollowing
+mentsevaluated.
+two research questions on datasets related to the
+financialdomain.
+NBofContradictedContexts
+Hallucination =
+1. RQ1: Does a graph-based RAG system re-
+TotalNumberofContexts
+duce hallucinations compared to a classical (2)
+RAGsystemforaquestion-answeringtask?
+5.3 RQ1: HallucinationsofRAGsystems
+2. RQ2: HowefficientisGraph/HybridRAGin (FactRAG&KG-RAG)
+termsoftokenconsumptionforretrievaltasks
+Recent studies (Kamalloo et al., 2023; Tan et al.,
+involvingdocumentcomparison?
+2023)onLLMshowthattheyaregoodatanswer-
+5.1 DatasetsinFinanceDomain ingmainstream,generaldomain-relatedquestions,
+withoutneedinganykindofknowledgeinjection,
+The datasets used in this study include Fi-
+suchasRAG.Hence,wechosetoexperimenton
+nanceBench (Islam et al., 2023), a benchmark
+the Financebench (Islam et al., 2023) dataset, as
+for evaluating AI systems in finance, which con-
+itcontainsquestionsonfinancialdocumentsfrom
+tains various financial documents like regulatory
+the filings of public companies6, which are less
+reportsandfinancialstatements. Additionally,we
+likely to have been seen and memorized by cur-
+utilized DORA (Digital Operational Resilience
+rentlyavailableLLM.Thedatasetiscomprisedof
+Act)(EuropeanParliamentandCounciloftheEu-
+150 questions and 84 documents. For each pair
+ropeanUnion,2022),aEuropeanUnionregulation
+(question,document)inthisdataset,weretrieved
+on managing IT risks in the financial sector, and
+the8mostrelevantchunksandaskedanLLMto
+the FFIEC IT Handbook(Federal Financial Insti-
+tutionsExaminationCouncil,2019),whichoffers 6https://www.sec.gov/search-filings
+58
+faithfulness↑ hallucination↓
+6e+05
+Llama3.23B
+TextRAG 0.844 0.704 4e+05
+FactsRAG 0.937 0.679
+2e+05
+KG-RAG 0.790 0.660
+0e+00
+Llama3.18B Llama 3.1 8B Llama 3.2 3B Qwen 2.5 32B
+Model
+TextRAG 0.843 0.659
+FactsRAG 0.891 0.658
+KG-RAG 0.890 0.532
+Qwen2.532B
+TextRAG 0.954 0.395
+FactsRAG 0.970 0.594
+KG-RAG 0.963 0.407
+Table1: DeepEvalscoreswithGPT4oasajudge.
+generate an answer. Finally, we relied on Deep-
+Eval7 to perform the evaluation. DeepEval relies
+onastrongLLMtoautomaticallyscoreRAGsys-
+tems,wechoseGPT-4osinceithasbeenreported
+asbeingoneofthemostaccurate. Inordertoeval-
+uatethepropensitytohallucinate,wereportinthe
+following the faithfulness measures from DeepE-
+val, as it quantifies the consistency of the gener-
+atedanswergivencontextualinformation. Thisisa
+goodproxyforhallucinationbecauseweexpectthe
+LLM’s response to be aligned with the retrieved
+chunks,anditisalsotherecommendedwaytomea-
+surehallucination. Wealsoreportthehallucination
+measurefromDeepEvalforcompleteness.
+For each RAG system, we experimented with
+threeLLMs: Llama 3.2 3B,Llama 3.1 8B(Dubey
+etal.,2024)andQwen 2.5 32B(Team,2024). We
+usedthesesameLLMtogeneratefactsduringthe
+facts-RAGexperiments.
+The results of the DeepEval evaluation are
+showninTable1. Weobserveanincreaseinfaith-
+fulness when switching from text to graph-based
+RAGsystems,exceptwiththesmallermodel. This
+observation fits our prior hypothesis stating that
+providingcontextualinformationfromKGcanre-
+ducehallucinations.
+WealsoobservethatthegapbetweenTextand
+FactsRAGishigherwithsmaller,andsupposedly
+lesspowerful,models. Sincethismeasurequanti-
+fiestheconsistencybetweentheretrievedcontext
+andthegeneratedanswer,weconcludethatsmaller
+modelshavesomedifficultiestofilteroutnoisein
+7https://github.com/confident-ai/deepeval
+59
+noitpmusnoc
+snekoT
+Facts RAG Text RAG
+Figure4: Totalnumberofinputtokensconsumeddur-
+ingourexperiments,forall150questions. FactsRAG
+usesdenseandeffectivepromptswhileproducingless
+hallucinationsthanTextRAG.
+raw texts, thus providing cleaner facts help them
+generatingmoreappropriateanswers;whilelarger
+modelshavebetterreasoningcapabilitiesandcan
+filterirrelevantinformationontheirown.
+5.3.1 Ablationstudies
+We conducted ablation studies to measure the in-
+dividual contribution of text and graph contexts.
+TheseexperimentsfocusonourKG-RAGsystem,
+we removed either the text chunks or the triples
+extractedfromtheKGandwecomputedthefaith-
+fulnessandhallucinationmeasuresfromDeepEval
+. The results, shown in Table 2, shows that the
+faithfulnessisalwaysbetterwhenprovidingonly
+triplesfromourKG.
+Wealsoobservethattherelativedifferencesbe-
+tweenallsetups(hybrid,notextandnograph)tend
+todecreasethelargerthemodelis. Thisvalidates
+ourpreviousassumption,largemodelscanfilterout
+irrelevantanduselessinformationbythemselves.
+However,wearguethatlettingthemodeldothefil-
+teringissuboptimalasitrequirestoprovideevery
+bits of available information to the LLM. We al-
+readyshowedthatgraph-basedRAGimprovesthe
+overall response by reducing hallucinations, and
+weshowinthefollowingthatitalsohasthebene-
+fitofbeingalotmoreefficientintermsoftokens
+consumptionasillustratedinFigure4.
+5.4 RQ2: HybridRAGoptimizingtokens
+usageinGraph-basedRAGSystems
+This experiment examines GraphRAG’s capabil-
+itytodetectcontradictionsinregulatorylanguage
+across jurisdictions, specifically between DORA
+(EU)andFFIEC(US)documents,demonstrating
+itsefficiencyinlarge-scaleregulatoryanalysis.
+Using a knowledge-graph-based KNN cluster-
+faithfulness↑ hallucination↓ ation pipeline, it also presents some drawbacks.
+Firstly, it requires a lot of computing power and
+Llama3.23B
+is impractical for large-scale evaluations due to
+text+graph 0.790 0.660
+highlatencyandpotentiallyprohibitivecosts. For
+graphonly 0.940 0.665
+instance,evaluatingasinglesystem(only150ques-
+textonly 0.807 0.690
+tions)necessitatesprocessingapproximately4mil-
+Llama3.18B lion input tokens and 0.4 million output tokens.
+text+graph 0.890 0.532 Secondly,thepromptsutilizedareoftenhard-coded
+graphonly 0.965 0.576 inEnglish,whichrendersthetoolkitunsuitablefor
+textonly 0.866 0.592 applicationsinotherlanguages.
+Lastly, even if we showed that introducing
+Qwen2.532B
+knowledge from KG enhances RAG systems, it
+text+graph 0.963 0.407
+isimportanttopointoutthedifficultiesofbuilding
+graphonly 0.988 0.619
+andqueryingagraphthatsuitsourtargettask. The
+textonly 0.945 0.365
+underlyingschemaofexistingKGmightnotfitthe
+target use case, hence the KG often has to be ei-
+Table2: DeepEvalscoreswithGPT4oasajudgewhen
+therhand-crafted(extremelycostlyanddifficultto
+removingtextorgraphcontexts.
+maintain)orautomaticallygenerated(error-prone
+andcompute-intensive). Forinstance,Mihinduku-
+ing approach, HybridRAG minimizes token con- lasooriyaetal.(2023)showthatprecisionandre-
+sumptionbystreamliningcontradictiondetection. call are very low even when the set of relation’s
+UnliketraditionalRAGmethodsthatrelyoncostly typestoextractisrestricted.
+pairwise comparisons (O(n2) complexity), Hy-
+bridRAGclustersdocumentsegmentswithKNN 6.2 Futurework
+(O(k ·n) complexity), - where n being the num- Future work could extend graph-based RAG ap-
+berofchunks-reducingretrievaltotargeted,con- proaches to handle diverse datasets, including vi-
+textually relevant nodes. This approach involves sually rich and multilingual documents, by inte-
+embeddingeachdocumentnode,clusteringsimilar gratingvisualembeddingsfromVision-Language
+segments,andgeneratingoptimizedLLMprompts Models (Faysse et al., 2024) and heterogeneous
+forcontradictiondetection. data(Sunetal.,2024). Fine-tuninglanguagemod-
+Withthisclusteringmethod(k = 10),APIcalls elswithdomain-specificknowledgecouldfurther
+decreasedfromalmost2million(1975944with reduce hallucination rates. Additionally, incor-
+the classical approach) to just 2 690, achieving a porating multimodal capabilities (e.g., text and
+734-foldreductionintokenconsumption. Eightpo- images) could enhance contextual understanding
+tentialcontradictionswereidentified,underscoring and retrieval precision. Improving the scalability
+GraphRAG’seffectivenessinenhancingcomputa- of knowledge graph construction and integrating
+tional efficiency and cost-effectiveness in regula- external sources like ontologies could further re-
+torydocumentretrieval. ducehallucinations(Agrawaletal.,2023). Explor-
+inghybridmodelscombiningsymbolicreasoning
+6 PerspectivesandFutureWork withdeeplearning(Ambrogioetal.,2023)andad-
+vancedpost-generationverification(Sansfordetal.,
+6.1 Limitations
+2024)couldalsoimproveRAGsystems.
+ThisworkfocusesexclusivelyontheEnglishlan-
+6.3 ArchitecturedesigntoindustrializeRAG
+guage,andassuch,wecannotconfidentlygeneral-
+systemsinproduction
+izeourfindingstootherlanguages,eventhosewith
+highresourceavailability. WeproposeadesigntosmoothlydeployRAGsys-
+SeverallimitationsareassociatedwiththeDeep- temsinproduction. Thearchitectureschemainthe
+EvaltoolkitusedforevaluatingourRAGsystems. appendix of Figure 6 demonstrates how modular
+Generally speaking, the use of LLM as a judge designcanensurescalabilityandsystemreliability.
+offers numerous advantages, such as ease of use TheRAGlogiciscomposedofmostoftheapp
+andtheabilitytoenablereproducibleevaluations that the user interacts with containing the RAG
+through hard-coded prompts and standard evalu- logic,themodelshub(green)whichisdeployedon
+60
+its infrastructure mostly based on GPU, the Data reduction inhallucinations while using 80%
+Module(red)whichconsistsoftheDataingestion fewertokenscomparedtotext-onlyRAG.
+layerofRAG,theEvaluationModule(lightblue)
+2. EfficiencyandCostSavings: Fordocument
+whichisresponsibleofallfunctionalevaluationsof
+comparison use-case, GraphRAG improves
+theRAGandlastlyoneofthemostimportantparts,
+efficiency by filtering out irrelevant data, re-
+themonitoringandthelogging(orange),whichen-
+ducing computational costs, and enhancing
+surethatoursystemworkswell,helpwithdebug-
+scalability. Using semantic clustering, it re-
+ging, audits, updates, and gives the entire vision
+ducesthecomplexityofdetectingcontradic-
+of the RAG. This setup allows each component
+tions from O(n2) to O(k ·n) where n is the
+tooperateindependentlyandcohesively,support-
+numberofchunksandnodesinthegraph.
+ingefficientscaling,robustfunctionality,andclear
+traceability.
+3. EnhancedExplainabilityandTraceability:
+HybridRAG,usingknowledgegraphs,allows
+6.4 Lessonslearnedandbestpracticesfor
+userstotraceresponsesbacktospecificdata
+deployingRAGsystemsinProduction
+sourcesandrelationshipsasshowninFigure
+Wesharesomerecommendationsbasedonlessons 5(anexampleoftheoutputofthedemousing
+learnedinlarge-scalebankinginfrastructure. NEO4J).Thistransparencyiscrucialforsec-
+Tomaintainefficientoperation,severalbestprac- torslikefinanceandbanking,enablingbetter
+ticesmustbefollowedwhendeployingRAGsys- governance, easier audits, and a more thor-
+temsinproduction. First,amodulardesignshould oughunderstandingofthereasoningbehind
+be implemented to allow easier maintenance, up- answers.
+dates,andscalability(Zhangetal.,2021). Caching
+This efficiency demonstrates that graph-based
+frequentlyaccessedqueriescanhelpreducelatency
+retrievalmethodscanmakelarge-scaleLLMappli-
+andimproveperformance. Additionally,usingan
+cations more cost-effective and accessible. How-
+LLMgatewayenablesswitchingbetweenmodels
+ever, their effectiveness depends on factors such
+basedontaskrequirements.
+as the dataset, knowledge graph modeling, and
+Real-timemonitoringandloggingmechanisms
+thespecificretrievaltask,highlightingthatgraph-
+shouldtracksystemhealth,latency,errorrates,and
+basedapproachesarenotalwaysinherentlymore
+performance metrics, enabling prompt issue res-
+efficient.
+olution and continuous improvement (Smith and
+Roberts, 2022). Appropriate evaluation metrics
+Acknowledgments
+shouldassessystemaccuracyandreliability,with
+faithfulnessasakeymetrictoensurethegenerated WearegratefultoJean-LucBillyandPhilipRathle
+responsesalignwiththeintendedoutputs(Kumar fortheirinsightfuldiscussionsonRAGandKnowl-
+etal.,2023). Finally,securitymeasuressuchasin- edgeGraphs,andtoVirginieChenal-LazeandGael
+putandoutputguardrailsarenecessarytomaintain Marchandforsharingtheirdomainknowledgeon
+ethicalboundaries(PatelandGupta,2024). Regu- regulatorymatters. WealsoacknowledgeLingua
+larbackupsandauditloggingensuredataintegrity, CustodiaandBNPParibasITGroupforproviding
+traceability,andreproducibilityacrossthesystem. thecomputingresourcesthatsupportedtheexperi-
+mentsonlargelanguagemodels(LLMs).
+7 Conclusion
+Reproducibility
+This study demonstrates three significant contri-
+We open-sourced the code to facilitate adoption
+butions of graph-based approaches in enhancing
+andreproducibilityofexperiments.
+classicalRAGsystems:
+HybridRAG Code for HybridRAG demo to
+compareDORA&FFIECisavailableonGithub8.
+1. Reduction of Hallucinations: The use of
+FactRAGCodeforbothtextandfactsRAGused
+graph-based structures, such as Fact-RAG,
+withFinanceBenchDataareavailableonGithub9.
+significantly reduces hallucinations by link-
+ing contextually relevant information. This
+8https://github.com/halftermeyer/
+dora-ffiec-hybrid-rag-neo4j
+leadstomorepreciseandcompleteresponses,
+9https://github.com/gcaillaut/
+withexperimentalevaluationsshowinga6% financebench-graph-rag
+61
+References L.Faysse, J.Turner, andD.Patel.2024. Colpali: Ef-
+ficientdocumentretrievalviavision-languagemod-
+GarimaAgrawal,TharinduKumarage,ZeyadAlghamdi,
+els. Proceedings of the Conference on Document
+andHuanLiu.2023. Canknowledgegraphsreduce
+Retrieval.
+hallucinations in llms?: A survey. arXiv preprint
+arXiv:2311.07914.
+Federal Financial Institutions Examination Council.
+ConfidentAI.2024. Deepeval: Theevaluationframe- 2019. Federal Financial Institutions Examination
+workforllms. Council (FFIEC) IT Examination Handbook. Ac-
+cessed: 2024-11-13.
+Mistral AI. 2023. Mixtral model card. https://
+mistral.ai.
+Yunfan Gao, Yun Xiong, Xinyu Gao, Kangxiang Jia,
+JinliuPan,YuxiBi,YiDai,JiaweiSun,MengWang,
+M.Ambrogio,D.Garcia,andF.Rodriguez.2023. Sym-
+andHaofenWang.2023. Retrieval-augmentedgen-
+bolic reasoning meets deep learning for improved
+erationforlargelanguagemodels: Asurvey. arXiv
+nlp models. Computational Intelligence Review,
+preprintarXiv:2312.10997.
+18(2):102–118.
+Yejin Bang, Samuel Cahyawijaya, Bryan Wilie Lee, K. Guu, K. Lee, Z. Tung, P. Pasupat, and M. Chang.
+WenliangDai,DanSu,BryanWilie,PascaleFung, 2020. Retrieval augmented language model train-
+etal. 2023. Amultitask, multilingual, multimodal ingwithknowledgegraphsforansweraccuracyand
+evaluationofchatgptonreasoning,hallucination,and depth. InProceedingsofEmpiricalMethodsinNatu-
+interactivity. In Proceedings of the International ralLanguageProcessing(EMNLP).
+ConferenceonLearningRepresentations(ICLR).
+AidanHogan,EvaBlomqvist,MichaelCochez,Clau-
+TomBBrown,BenjaminMann,NickRyder,Melanie
+dia d’Amato, Gerard De Melo, Claudio Gutierrez,
+Subbiah, Jared Kaplan, Prafulla Dhariwal, Arvind
+SabrinaKirrane,JoseEmilioLabraGayo,Roberto
+Neelakantan,PranavShyam,GirishSastry,Amanda
+Navigli,SebastianNeumaier,etal.2022. Knowledge
+Askell,etal.2020. Languagemodelsarefew-shot
+graphs. SynthesisLecturesonData,Semantics,and
+learners. InAdvancesinneuralinformationprocess-
+Knowledge,12(2):1–257.
+ingsystems.
+Pere-Lluís Huguet Cabot, Simone Tedeschi, Axel- Pranab Islam, Anand Kannappan, Douwe Kiela, Re-
+CyrilleNgongaNgomo,andRobertoNavigli.2023. beccaQian,NinoScherrer,andBertieVidgen.2023.
+Redfm: afilteredandmultilingualrelationextraction Financebench: Anewbenchmarkforfinancialques-
+dataset. In Proceedings of the 61st Annual Meet- tionanswering. Preprint,arXiv:2311.11944.
+ingoftheAssociationforComputationalLinguistics
+(Volume1: LongPapers),pages4326–4343. ZiweiJi,NayeonLee,RitaFrieske,TiezhengYu,Dan
+Su, Yanlin Xu, Etsuko Ishii, Yejin Bang, Andrea
+SalvatoreCarta,AlessandroGiuliani,LeonardoPiano,
+Madotto,andPascaleFung.2023. Asurveyofhallu-
+AlessandroSebastianPodda, LivioPompianu, and
+cinationinnaturallanguagegeneration. ACMCom-
+SandroGabrieleTiddia.2023. Iterativezero-shotllm
+putingSurveys,55(12):1–35.
+promptingforknowledgegraphconstruction. arXiv
+preprintarXiv:2307.01128.
+Ehsan Kamalloo, Nouha Dziri, Charles Clarke, and
+AbhimanyuDubey,AbhinavJauhri,AbhinavPandey, DavoodRafiei.2023. Evaluatingopen-domainques-
+AbhishekKadian,AhmadAl-Dahle,AieshaLetman, tionansweringintheeraoflargelanguagemodels.
+Akhil Mathur, Alan Schelten, Amy Yang, Angela In Proceedings of the 61st Annual Meeting of the
+Fan,etal.2024. Thellama3herdofmodels. arXiv AssociationforComputationalLinguistics(Volume
+preprintarXiv:2407.21783. 1: LongPapers),pages5591–5606.
+NouhaDziri,AlexanderMilton,TiezhengYu,MohitYu, JihoonKangandMinjiLee.2023. Ever-growingknowl-
+KevinBowden,DebanjanGhosh,AndreaMadotto, edge: Integratingretrieval-augmentedgenerationfor
+and Pascale Fung. 2022. On the origin of halluci- continuouslearninginlanguagemodels. IEEETrans-
+nationsinconversationalmodels: Isitthedatasets actionsonNeuralNetworksandLearningSystems,
+orthemodels? TransactionsoftheAssociationfor 34(8):2591–2603.
+ComputationalLinguistics(TACL),10:730–746.
+P.Kumaretal.2023. Metricsforevaluatinglargelan-
+Shahul Es, Jithin James, Luis Espinosa-Anke, and
+guage models: Precision, recall, and faithfulness.
+Steven Schockaert. 2023. Ragas: Automated eval-
+IEEETransactionsonAI,10(2):125–134.
+uation of retrieval augmented generation. arXiv
+preprintarXiv:2309.15217.
+PatrickLewis,EthanPerez,AleksandraPiktus,Fabio
+European Parliament and Council of the European Petroni,VladimirKarpukhin,NamanGoyal,Hein-
+Union. 2022. Regulation (EU) 2022/2554 of the richKüttler, MikeLewis, Wen-tauYih, TimRock-
+European Parliament and of the Council on Digi- täschel,etal.2020. Retrieval-augmentedgeneration
+tal Operational Resilience for the Financial Sector forknowledge-intensivenlptasks. AdvancesinNeu-
+(DORA). Accessed: 2024-11-13. ralInformationProcessingSystems,33:9459–9474.
+62
+J.Liu,C.Xiong,andJ.Callan.2022. Graphretrieval Qwen Team. 2024. Qwen2.5: A party of foundation
+augmentationforenhancedcontextualandsemantic models.
+understandinginlargelanguagemodels. InProceed-
+ingsoftheNorthAmericanChapteroftheAssocia- HugoTouvron,ThibautLavril,GautierIzacard,Xavier
+tionforComputationalLinguistics(NAACL). Martinet,Marie-AnneLachaux,TimothéeLacroix,
+Baptiste Roziere, Naman Goyal, Eric Hambro,
+ShayneLongpre,YiLu,MitchellWortsman,Tianhao Faisal Azhar, et al. 2023. Llama: Open and effi-
+Xia,etal.2021. Lostinthemiddle: Howlengthof cient foundation language models. arXiv preprint
+inputaffectslanguagemodels’abilitytounderstand arXiv:2302.13971.
+context. InProceedingsofthe2021Conferenceon
+EmpiricalMethodsinNaturalLanguageProcessing YifanYao, ZiluZhang, FeiFang, MinZheng, LeiLi,
+(EMNLP),pages1001–1013. LinhongSun,andJieTang.2021. Citationkg: Con-
+structing a citation knowledge graph with contex-
+NandanaMihindukulasooriya,SanjuTiwari,CarlosF tualinformationandapplications. InProceedingsof
+Enguix, andKusumLata.2023. Text2kgbench: A the2021ConferenceoftheNorthAmericanChap-
+benchmarkforontology-drivenknowledgegraphgen- teroftheAssociationforComputationalLinguistics
+eration from text. In International Semantic Web (NAACL),pages1234–1245.
+Conference,pages247–265.Springer.
+M.Yasunaga,X.Wu,D.Radev,andJ.Leskovec.2022.
+OpenAI.2023. Gpt-4technicalreport. arXivpreprint Graph-basedretrieval-augmentedlanguagemodels
+arXiv:2303.08774. forfactverificationandknowledgeenrichment. In
+TransactionsoftheAssociationforComputational
+N.PatelandR.Gupta.2024. Securityframeworksfor
+Linguistics(TACL).
+ethicalaideployment. JournalofAIEthics,3(1):45–
+62. Bowen Zhang and Harold Soh. 2024. Extract, de-
+fine, canonicalize: An llm-based framework for
+H.Qian,M.Chen,Y.Liu,andS.Wang.2024. Ground-
+knowledge graph construction. arXiv preprint
+ingretrieval-augmentedgeneration: Mitigatinghallu-
+arXiv:2404.03868.
+cinationswithcontextualawareness. InProceedings
+oftheConferenceonEmpiricalMethodsinNatural
+Y. Zhang et al. 2021. Scalable architectures for
+LanguageProcessing(EMNLP). large-scale ai systems. Journal of AI Engineering,
+12(4):250–267.
+PhilipRathle. Thegraphragmanifesto: Addingknowl-
+edgetogenai.
+W.Zhao,C.Wang,X.Zhang,andH.Lin.2023. Graph-
+based retrieval-augmented generation: Leveraging
+NilsReimersandIrynaGurevych.2019. Sentence-bert:
+knowledgegraphsforcontextualaccuracy. InPro-
+Sentenceembeddingsusingsiamesebert-networks.
+ceedingsoftheConferenceonKnowledgeDiscovery
+InProceedingsofthe2019ConferenceonEmpirical
+andDataMining(KDD).
+MethodsinNaturalLanguageProcessing.Associa-
+tionforComputationalLinguistics.
+A ReproducibilityofHybridRAGdemo
+Guy Rosin, Ranit Ben Aharon, Marina Litvak, and
+DanielCohen-Or.2022. Knowledgegraphsinnatu- ReproducibilityThecodesourceforHybridRAG
+rallanguageprocessing: Asurvey. JournalofArtifi- demoisopen-sourced10 tofacilitateadoption.
+cialIntelligenceResearch(JAIR),73:765–826.
+A.1 Use-CaseforEfficientContradiction
+HannahSansford,NicholasRichardson,HerminaPetric
+DetectioninRegulatoryDocuments
+Maretic,andJubaNaitSaada.2024. Grapheval: A
+knowledge-graphbasedllmhallucinationevaluation Theproblemfocusesonefficientlydetectingcontra-
+framework. arXivpreprintarXiv:2407.10793.
+dictionsbetweendocumentsegments,suchasthose
+A.SmithandJ.Roberts.2022. Real-timemonitoring from regulatory documents (DORA and FFIEC),
+andfeedbackforaiapplications. AISystemsJournal, using a Retrieval-Augmented Generation (RAG)
+8(3):148–159.
+system. Theapproachconsistsoftwokeysteps:
+Qiang Sun, Yuanyi Luo, Wenxiao Zhang, Sirui Li,
+1. KNN Clustering: A semantic similarity re-
+JichunyangLi,KaiNiu,XiangruiKong,andWeiLiu.
+2024. Docs2kg: Unifiedknowledgegraphconstruc- lationisusedtogroupsimilardocumentseg-
+tionfromheterogeneousdocumentsassistedbylarge mentsbasedoncosinesimilarity,reducingthe
+languagemodels. arXivpreprintarXiv:2406.02962. complexity from O(n2) to O(k ·n) by con-
+Yiming Tan, Dehai Min, Yu Li, Wenbo Li, Nan Hu, sideringonlythetopk-nearestneighboursfor
+Yongrui Chen, and Guilin Qi. 2023. Can chatgpt eachnode,wherenisthenumberofchunks
+replacetraditionalkbqamodels? anin-depthanalysis
+(nodesinthegraph).
+ofthequestionansweringperformanceofthegptllm
+family. InInternationalSemanticWebConference, 10https://github.com/halftermeyer/
+pages348–367.Springer. dora-ffiec-hybrid-rag-neo4j
+63
+2. ContradictionDetection: AnLLMisusedto forced, the others are generated by the LLM and
+detectcontradictionsbetweenpairsofsimilar arenotreportedhere.
+segments,reducingthenumberofLLMcalls
+## User
+andtheassociatedtokenconsumption.
+Please read the text below, I will ask
+you questions afterwards.
+A.2 Approach: HybridRAGforOptimized
+RetrievalandContradiction
+{{ INPUT_TEXT }}
+Identification
+Traditional RAG systems often suffer from high
+## Assistant
+tokenconsumptionduetothecomputationallyex-
+I have read the text, I am ready to answer
+pensiveCartesianproductofdocumentsegments.
+your questions.
+HybridRAG addresses this by utilizing a stream-
+linedpipelinethatappliesKNNclustering:
+## User
+1. Optimization of Retrieval and Contradic- The end goal is to build a knowledge
+tion Identification: HybridRAG enhances graph from the text. We will do it
+efficiencyinretrievingandidentifyingcontra- step by step. First, extract all named
+dictionswithinlargeregulatorydocuments. entities (persons, organizations, events,
+...), dates (times and epochs too) and
+2. Knowledge-Graph-BasedKNNClustering: locations. Put them in a list.
+It utilizes KNN clustering with knowledge
+graphembeddingstogroupsimilardocument ## Assistant
+segments,reducingcomputationalcosts. <list of entities>
+3. Context Capture: Context for each docu-
+## User
+mentnodeiscaptured,incorporatingitscon-
+Perfect, now generate a list of triples
+tent,structuralrelationships,andcitations.
+(subject, predicate, object). Subjects
+4. EmbeddingCreation: Textembeddingsare and objects must come from the list
+generatedbyconcatenatingcontextualinfor- of entities you extracted beforehand.
+mation,encapsulatingthesemanticessenceof Predicates are very short text (up to
+documentsegments. 3 words) describing the relation between
+subjects and objects. Try to extract only
+5. KNN Clustering: Cosine similarity is ap-
+*interesting* triples, do not report too
+pliedtoclusterdocumentsegments,creating
+obvious triples.
+labelededges(e.g.,SIMILAR_TO)forefficient
+comparison.
+## Assistant
+<list of triples>
+6. ContradictionDiscovery: LLMpromptsare
+used to assess contradictions between docu-
+## User
+ment segments, yielding a simple "Yes" or
+Great, now format the triples as a JSON
+"No"answer.
+list. Add a "text" attribute containing
+a sentence in natural language fully
+B ArchitecturalDesignforRAGin
+describing the fact held by the triple.
+Production
+Just write the JSON content.
+We propose a design schema in Figure 6 that
+## Assistant
+demonstrateshowmodulardesigncanensurescal-
+<JSON content>
+abilityandsystemreliability.
+C Factsextractiononfinancedata(Islam
+etal.,2023)
+Thepromptusedtoextractaknowledgegraphfrom
+atextisgivenbelow. Thefirstassistantansweris
+64
+Figure5: HybridRAG:ExampleofpotentialcontradictionbetweenarticlesinDORAandFFIEC
+Figure6: ArchitecturalDesignandComponentstoDeployRAGinProduction
+65

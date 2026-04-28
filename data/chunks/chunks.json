@@ -1,0 +1,197 @@
+[
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_0",
+    "source": "2025.genaik-1.6.txt",
+    "text": "Graph RAG: Leveraging Graph-Based Efficiency to Minimize Hallucinations in LLM-Driven RAG for Finance Data Mariam Barry1,Ga\u00ebtan Caillaut2,Pierre Halftermeyer3,Raheel Qader2, Mehdi Mouayad1,Dimitri Cariolaro4,Fabrice Le Deit5,Joseph Gesnouin6, 1BNPParibas-ITGroup-AI&ITInnovation,2Lingua Custodia,3NEO4J, 4Graph Thinking Consulting,5BNPParibas-ITGroup-Production,6BNPParibas-Cash Management Abstract This study explores the integration of graphbasedmethodsinto Retrieval-Augmented Generation(RAG)systemstoenhanceefficiency, reducehallucinations,andimproveexplainability,withaparticularfocusonfinancialandregulatory document retrieval. We propose two strategies\u2014Fact RAGand Hybrid RAG\u2014which leverage knowledge graphs to improve RAG performance. Experimentsconductedusing Finance Bench, a benchmark for AI in finance, demonstrate that these approaches achieve a 6% reduction in hallucinations and an 80%"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_1",
+    "source": "2025.genaik-1.6.txt",
+    "text": "entsconductedusing Finance Bench, a benchmark for AI in finance, demonstrate that these approaches achieve a 6% reduction in hallucinations and an 80% decreaseintokenusagecomparedtoconventional RAGmethods.Furthermore,weevaluate Hybrid RAGbycomparingthe Digital Operational Resilience Act(DORA)fromthe Euro Figure1: Graph RAGPattern(Rathle) pean Unionwiththe Federal Financial Institutions Examination Council(FFIEC)guidelines from the United States. The results reveal a significantimprovementincomputationaleffi Hallucination arises from LLMs\u2019 reliance on pociency,reducingcontradictiondetectioncomtentiallyoutdatedordomain-generaltrainingdata, plexityfrom O(n2)to O(k\u00b7n)\u2014wherenisthe leadingtoinaccuraciesinreal-worldapplications numberofchunks\u2014andaremarkable734-fold whereprecisioniscritical(Dzirietal.,2022). decreaseintokenconsumption. Graph-based retrieval methods can improve the efficiency Toa"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_2",
+    "source": "2025.genaik-1.6.txt",
+    "text": "remarkable734-fold whereprecisioniscritical(Dzirietal.,2022). decreaseintokenconsumption. Graph-based retrieval methods can improve the efficiency Toaddresstheissueofhallucinations,Retrievalandcost-effectivenessoflargelanguagemodel Augmented Generation (RAG) has emerged as a (LLM)applications,thoughtheirperformance promising approach. Introduced by Lewis et al. andtokenusagedependonthedataset,knowl(2020), RAG combines a retriever that identifies edgegraphdesign,andretrievaltask. relevant documents and a generator that creates coherentresponsesfromthisinformation. Bycom1 Introduction bining LLMswithexternalknowledgebases,RAG Generative Artificial Intelligence(Gen AI),exemsystems can enhance response accuracy and releplified by Large Language Models (LLMs) such vancebydynamicallyincorporatingup-to-dateand as Open AI\u2019s GPTseries(Brownetal.,2020;Opeverifiableinformationintogeneratedoutputs(K"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_3",
+    "source": "2025.genaik-1.6.txt",
+    "text": " Models (LLMs) such vancebydynamicallyincorporatingup-to-dateand as Open AI\u2019s GPTseries(Brownetal.,2020;Opeverifiableinformationintogeneratedoutputs(Kang n AI,2023),Meta\u2019s LLa MAmodels(Touvronetal., and Lee,2023). Theoriginalapproachsuggested 2023),and Mistral\u2019s Mixtral(AI,2023),hasgained dividingdocumentsinto100-worddisjointchunks, prominenceinvariousfields,includinghealthcare, butthiscandisruptsemanticsandleadtohallucifinance,andeducation. Thesemodels,whilehighly nations,asnotedby Qianetal.(2024). Tomitigate capableofproducingcoherentandcontextuallyrelthese issues, enhancements like sliding window evantresponses,facechallengesingeneratingfacchunking, sentence-level splitting with surroundtuallyaccuratecontent\u2014aphenomenonreferredto ing context, and incorporating metadata such as ashallucination(Jietal.,2023;Bangetal.,2023). documenttitleshavebeenproposedtoimprovethe 54 Proceedingsofthe "
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_4",
+    "source": "2025.genaik-1.6.txt",
+    "text": "text, and incorporating metadata such as ashallucination(Jietal.,2023;Bangetal.,2023). documenttitleshavebeenproposedtoimprovethe 54 Proceedingsofthe Generative AIand Knowledge Graph Workshop(Gen AIK),pages54\u201365 January19,2025.\u00a92025International Committeeon Computational Linguistics(ICCL) qualityandrelevanceofthegeneratedoutputs(Gao 2 Related Work etal.,2023). While RAGoftenimprovestherelevanceoflan Knowledge Graphs (KGs) play a crucial role in guagemodeloutputs,itfacesnotablelimitationsin enhancingtheinterpretabilityandfactualaccuracy real-worldapplications: of large language models (LLMs) by structuring information as entities and relationships (Hogan 1. Neglectof Structured Relationships: Tradietal.,2022;Rosinetal.,2022). Theintegrationof tional RAGfocusesontextualrelevanceand graphstructureswithin Retrieval-Augmented Genoftenoverlooksstructuredrelationshipscritieration(RAG)frameworks"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_5",
+    "source": "2025.genaik-1.6.txt",
+    "text": "f tional RAGfocusesontextualrelevanceand graphstructureswithin Retrieval-Augmented Genoftenoverlooksstructuredrelationshipscritieration(RAG)frameworkshasshownsignificant calindomainslikecitationnetworks,limiting improvements in model performance. Zhao et al. itseffectivenessforcomplex,interconnected (2023) demonstrate that Graph-based Retrievaldata(Yaoetal.,2021). Augmented Generation enhances contextual accuracy by allowing systems to retrieve relevant 2. Redundancy and Lengthy Contexts: Conentities and relationships from KGs. Similarly, catenated text snippets in RAG can lead to Yasunaga et al. (2022) highlights the benefits of redundancy and excessively lengthy inputs, Graph-based Retrieval-Augmented Language Modcausingthemodeltolosefocusandobscure elsforfactverificationandknowledgeenrichment, keyinformation(Longpreetal.,2021). ensuring that generated outputs are relevant and 3. Limit"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_6",
+    "source": "2025.genaik-1.6.txt",
+    "text": "sandobscure elsforfactverificationandknowledgeenrichment, keyinformation(Longpreetal.,2021). ensuring that generated outputs are relevant and 3. Limited Global Context: RAG\u2019s restricted accurate. Liu et al. (2022) introduces the conretrieval scope hinders its ability to capture ceptof Graph Retrieval Augmentation,whichenbroader contexts necessary for tasks like hancescontextualandsemanticunderstandingin query-focused summarization (Lewis et al., LLMs, resulting in more coherent and pertinent 2020). responses. Furthermore, the work of Guu et al. (2020)illustrateshowtraininginalanguagemodel These limitations highlight the need for adwith augmented retrieval with knowledge graphs vancedapproaches,suchas Graph RAG(Figure1), canimprovetheaccuracyanddepthoftheanswer to incorporate structured relationships and probyusing KGfortheretrievalandstructureddata. vide richer, more contextually accurat"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_7",
+    "source": "2025.genaik-1.6.txt",
+    "text": "yanddepthoftheanswer to incorporate structured relationships and probyusing KGfortheretrievalandstructureddata. vide richer, more contextually accurate informa Graph RAG stands out by retrieving graph eletion,whilebeingmoreefficientintermsoftoken ments from a pre-constructed knowledge graph, usage. Toovercometheselimitations,weexplore therebyenriching LLM-generatedresponseswith severaldistinctapproachestoenhancing RAGsysstructured knowledge (Rosin et al., 2022). This temswithgraphs,including: structure allows Graph RAG to capture semantic nuances, maintain contextual coherence, and re1. Fact RAG: We propose a graph-based apduceverbosity,makingitparticularlyeffectivefor proach,\"Fact RAG,\"foraquestion-answering applicationsinquestion-answering,recommendasearchenginethatismoreefficientintermof tion systems, and complex information retrieval tokensandreduceshallucinationscompared tasksrelyin"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_8",
+    "source": "2025.genaik-1.6.txt",
+    "text": "g,recommendasearchenginethatismoreefficientintermof tion systems, and complex information retrieval tokensandreduceshallucinationscompared tasksrelyingonstructuredknowledge. toclassical RAG. 2. KG-RAG:Weintroduceaknowledgegraph3 Problem Statement enhanced technique, \"KG-RAG,\" for documentcomparisontasks,thatsignificantlyim Large Language Models (LLMs) augmented by proves token efficiency and reduces computational complexity from O(n2) to O(k \u00b7n) Retrieval-Augmented Generation(RAG)systems haveadvancedtheabilitytogeneratecontextually in LLM-drivenretrievaltasks,wherenisthe relevantresponses. However,despite RAG\u2019spotennumberofchunks/nodesandkthenumberof tialtoreduceinaccuraciesbyintegratingexternal clustersinthe KNNalgorithmsspecificallyfor knowledge,hallucinations\u2013definedasthegeneradetectingcontradictionsbetweendocuments. tionoffactuallyincorrectorfabricatedinformation 3. Hybrid RAG:Weprov"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_9",
+    "source": "2025.genaik-1.6.txt",
+    "text": "owledge,hallucinations\u2013definedasthegeneradetectingcontradictionsbetweendocuments. tionoffactuallyincorrectorfabricatedinformation 3. Hybrid RAG:Weprovideopen-sourcecode \u2013 remain a significant issue. This paper explores for a graph-based Hybrid RAG, which intetherelevanceofagraph-basedapproachtoreduce gratessymbolicandsub-symbolicretrievalfor hallucinationsandoptimizetokenconsumptionin flexiblequestion-answering. languagemodels. 55 3.1 Graph-basedtechnique 2. Faithfulness Score, F(a), for each answer a \u2208 A as the proportion of information in Weidentifytwokeyapproachestominimizinghala that is directly supported by the retrieved lucinationsin RAGsystems: pre-generationand context C(q): post-generation(Agrawal et al., 2023). The pregeneration approach enhances the input context Supported Informationina F(a) = = 1\u2212H(a) withhigh-quality, semanticallyrelevantpassages Total Informationina to hel"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_10",
+    "source": "2025.genaik-1.6.txt",
+    "text": "pproach enhances the input context Supported Informationina F(a) = = 1\u2212H(a) withhigh-quality, semanticallyrelevantpassages Total Informationina to help the model produce accurate outputs. The Objective We aim to minimize the overall halpost-generationapproach,ontheotherhand,valilucination rate H(A) across all answers A = datesandcorrectsfactualaccuracyusingverifica{a ,a ,...,a } while ensuring that each a \u2208 A tionprocesses(Sansfordetal.,2024). 1 2 m remainsrelevanttothequeryq. Thisobjectivecan Knowledge graphs (KGs) support both apbeformulatedas: proaches by providing structured knowledge. In pre-generation,KGscaninsertaccuratefactsinto m 1 (cid:88) the input context. In post-generation, KGs help min H(A) = H(a i ) RAG m validategeneratedcontentforfactualcorrectness. i=1 However,post-generationfaceschallengessuch subjectto: asconvertingtexttographrepresentationsandthe F(a ) \u2265 \u03b4 \u2200a \u2208 A i "
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_11",
+    "source": "2025.genaik-1.6.txt",
+    "text": "ntentforfactualcorrectness. i=1 However,post-generationfaceschallengessuch subjectto: asconvertingtexttographrepresentationsandthe F(a ) \u2265 \u03b4 \u2200a \u2208 A i i computationalcostsofiterative LLMcalls(Cabot etal.,2023). Additionally,post-generationcorrecwhere \u03b4 is a predefined faithfulness threshold tions may introduce further errors, and the itera(e.g.,0.9),ensuringthateachgeneratedansweris tive calls to LLMs increase computational costs, primarilysupportedbytheretrievedcontext C(q). makinglarge-scaleapplicationsimpractical. Given 4 Proposal: Graph-based RAGSystem these limitations, our work focuses on the pregeneration approach, aiming to reduce hallucina Weproposetoenhancetheclassical RAGsystem tionsbyusing KGstoprovidemoreaccurateand with knowledge from graph databases instead of reliablecontextbeforegeneration,improvingboth raw texts. Tothisaim, webuild atraditionaltext factualaccuracyandeffi"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_12",
+    "source": "2025.genaik-1.6.txt",
+    "text": "ge from graph databases instead of reliablecontextbeforegeneration,improvingboth raw texts. Tothisaim, webuild atraditionaltext factualaccuracyandefficiencyin RAGsystems. RAGsystemtoserveasabaseline,aswellastwo graph-flavored variants, which we call Facts and 3.2 Problemformalization-Buildinga RAG KG-RAGinthefollowing. systemwithminimalhallucinations Reproducibility Codeforbothtextandfacts RAG In Retrieval-Augmented Generation (RAG) sysareavailableon Github1. tems, hallucinations occur when the language 4.1 Text RAG modelgeneratescontentthatisfactuallyincorrect or unsupported by retrieved documents. Given a Our text baseline is very classical, we set up set of documents D = {d ,d ,...,d } and a set a standard RAG pipeline. We relied on the 1 2 n of user queries Q = {q ,q ,...,q }, the goal is unstructured2 Python package to extract non1 2 m todesigna RAGsystemthatminimizesthegeneroverlap"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_13",
+    "source": "2025.genaik-1.6.txt",
+    "text": "1 2 n of user queries Q = {q ,q ,...,q }, the goal is unstructured2 Python package to extract non1 2 m todesigna RAGsystemthatminimizesthegeneroverlappingchunksofapproximately500characationofhallucinatedresponseswhilemaximizing ters and we used the all-Mini LM-L6-v2 model responseaccuracy. providedbysentence-transformers3 (Reimers We define a RAG system as a function RAG : and Gurevych,2019)toembedthem. Westoredthe Q \u2192 A,whereeachqueryq \u2208 Qismappedtoan chunks and their embedding inside a chromadb4 answera \u2208 Abasedonretrievedcontext C \u2286 D. database. Let C(q) = {c ,c ,...,c } represent the set of 1 2 k 4.2 Facts RAG retrieveddocumentsforaqueryq,where C(q) \u2286 D. Es et al. (2023) define the below evaluation Oursecondsystemrelyon LLMtoautomatically measures: extract entities and relations from raw text, then 1 1. Hallucination Score,H(a),foreachanswer financebench-graph-rag a \u2208 A as the propor"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_14",
+    "source": "2025.genaik-1.6.txt",
+    "text": "ly measures: extract entities and relations from raw text, then 1 1. Hallucination Score,H(a),foreachanswer financebench-graph-rag a \u2208 A as the proportion of information in a 2 thatisunsupportedby C(q): unstructured 3 Unsupported Informationina sentence-transformers H(a) = 4 Total Informationina 56 processedtoextractaknowledgegraph,givenapredefinedgraphschema. Then,textchunksandtheir embeddingsarestoredinsideanodeandlinkedto theentitiestheycontain. Morespecifically,werely on the llm-graph-builder tool from Neo4j5 to extractaknowledgegraphfrompdffiles. Thetool can also automatically generate a graph schema fromrawtext,soweusethequestionsinourdataset (moredetailsin Section5)toextractaschemasuitingourtargettask. Finally,weusetheuser\u2019squerytofindthemost relevantchunksusingtraditionalembeddingsimilarity,thenweexplorethegraphusingthechunks as seed to retrieve potentially useful entities and re"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_15",
+    "source": "2025.genaik-1.6.txt",
+    "text": "ndthemost relevantchunksusingtraditionalembeddingsimilarity,thenweexplorethegraphusingthechunks as seed to retrieve potentially useful entities and relations,intheformoftriples. Welimittheexploration of the graph to the direct neighbors of the relevantchunks,butmoresophisticatedexploration Figure 2: Facts extraction process. We first extract strategies are possible, such as re-ranking docuentities from a raw and potentially noisy text. Then ments using graph-based algorithms like Page Rwebuildtriplesusingthetextandtheextractedentities. ank. Finally, wegeneratetextualdescriptionofthetriples, whichwecallfacts. 4.4 Hybrid RAG The last system we experimented with aims to convertthesetriplesintoshortsentences. Wecall leverage explicit and implicit relationships from these sentences facts. Hence, this system is very theknowledgegraphusinganhybridarchitecture. similartoourbaseline,thedifference"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_16",
+    "source": "2025.genaik-1.6.txt",
+    "text": "it relationships from these sentences facts. Hence, this system is very theknowledgegraphusinganhybridarchitecture. similartoourbaseline,thedifferencebeinganad Asillustratedin Figure3. ditionalsteptoconvertrelevantchunksintofacts. We introduce a Graph RAG framework that Practicallyspeaking,wefirstaskan LLMtoextract combines explicit (symbolic) and implicit (suballentitiesinsidearelevantchunk,thenweaskfor symbolic) retrieval methods to enhance retrievaltherelationsbetweenthem. Finally,the LLMgenaugmented generation (RAG) systems. Our aperatetriplesandashortsentence(thefact)describproachallowsforadaptiveretrievalbasedonthenaing the triple in natural language inside a JSON tureoftheuserquestion,with Explicit RAGusing array. Theresultingsentencesaremuchmorecontext-to-Cypher translation for structured queries, cise, contain less noise, and are more direct. We while Implicit RAGleveragesvector"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_17",
+    "source": "2025.genaik-1.6.txt",
+    "text": "esaremuchmorecontext-to-Cypher translation for structured queries, cise, contain less noise, and are more direct. We while Implicit RAGleveragesvectorsimilarityto thenprovidethesegeneratedfactstothe LLMinfindk-nearestneighbours. Thesystememploysan steadoftherawchunks. Thecompletepromptwe LLMtodeterminetheoptimalretrievalmethod,utiusedtogeneratethesefactsisgivenin Appendix C lizingtheretrievedcontexttogeneratepreciseanandtheoverallprocessisdescribedin Figure2. swers,offeringaversatilesolutionforbetterknowl Thepurposeofthissystemistovalidatethereledgeretrievaltasks. evanceof LLM-basedknowledgegraphextraction Our approach to Hybrid RAG is tested with a methods(Zhangand Soh,2024;Cartaetal.,2023) comparativeanalysisoftworegulatorydocuments: inthecontextof RAG.Whilewepointed outthe the Digital Operational Resilience Act (DORA) limitationsoftheseapproachesintheprevioussecfromthe European Uniona"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_18",
+    "source": "2025.genaik-1.6.txt",
+    "text": "econtextof RAG.Whilewepointed outthe the Digital Operational Resilience Act (DORA) limitationsoftheseapproachesintheprevioussecfromthe European Unionandthe Federal Financial tion, we also believe that extracting graphs from Institutions Examination Council(FFIEC)guidetext is a powerful summarization and noise filterlinesfromthe United States. ing tool, as it removes all uninformative tokens The Hybrid RAGsystemisdesignedtooptimize andthefactsgeneratedareveryclearandeasyto the retrieval and contradiction identification prounderstand. cessinlargeregulatorydocumentsusingaknowledgegraph-based KNNclusteringapproach. Tra4.3 KG-RAG(Knowledge Graphbased RAG) ditional Retrieval-Augmented Generation (RAG) Ourthirdsystemisbasedonagraphrepresentation of the document to be queried. The document is 5 57 guidelinesfor ITmanagementin U.S.financialinstitutions. Thesedatasetswereusedtoassessthe performanc"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_19",
+    "source": "2025.genaik-1.6.txt",
+    "text": "f the document to be queried. The document is 5 57 guidelinesfor ITmanagementin U.S.financialinstitutions. Thesedatasetswereusedtoassessthe performanceoftheproposedmethodsinfinancial documentretrievalandcontradictiondetection. 5.2 Metrics Wewillusethemetricsof Deep Eval(AI,2024)to evaluate RQ1. Sincewearenotinterestedinassessingtheoverall RAGqualityortheretrievalmechanism,butrathertheprobabilitytohallucinate,we focusedonthetwohallucinationsmeasuresavailable in Deep Eval. The Faithfulness Metric first usesan LLMtoextractallclaimsmadeintheac Figure3: Hybrid Graph RAG:Explicitvs. Implicit tual_output,beforeusingthesame LLMtoclassify RAG,e.g Symbolicvs. Sub-Symbolic Retrieval. The whether each claim is truthful based on the facts frameworkofferstworetrievalstrategiesbasedonthe presented in the retrieval_context. The Hallucinatureoftheuser\u2019squery. nation metric employs an LLM to evaluate each"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_20",
+    "source": "2025.genaik-1.6.txt",
+    "text": "stworetrievalstrategiesbasedonthe presented in the retrieval_context. The Hallucinatureoftheuser\u2019squery. nation metric employs an LLM to evaluate each context in a set of contexts, determining whether methodsoftensufferfromhightokenconsumption thereareanycontradictionswiththeactual_output. due to the computationally expensive Cartesian Themetricsarecalculatedaccordingtothefolproductofdocumentsegments. Toovercomethis, lowingequation: Hybrid RAG uses KNN clustering to group similar document segments, reducing computational costs. The system captures the context for each Numberof Truthful Claims Faithfulness = (1) document node, generates text embeddings, and Total Numberof Claims clustersnodesbasedoncosinesimilarity. the Number of Truthful Claims represents the 5 Experimentsandevaluation countofaccuratestatements,andthe Total Number of Claims represents the overall number of state Weconduc"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_21",
+    "source": "2025.genaik-1.6.txt",
+    "text": "aims represents the 5 Experimentsandevaluation countofaccuratestatements,andthe Total Number of Claims represents the overall number of state Weconductedexperimentstoaddressthefollowing mentsevaluated. two research questions on datasets related to the financialdomain. NBof Contradicted Contexts Hallucination = 1. RQ1: Does a graph-based RAG system re Total Numberof Contexts duce hallucinations compared to a classical (2) RAGsystemforaquestion-answeringtask? 5.3 RQ1: Hallucinationsof RAGsystems 2. RQ2: Howefficientis Graph/Hybrid RAGin (Fact RAG&KG-RAG) termsoftokenconsumptionforretrievaltasks Recent studies (Kamalloo et al., 2023; Tan et al., involvingdocumentcomparison? 2023)on LLMshowthattheyaregoodatanswer5.1 Datasetsin Finance Domain ingmainstream,generaldomain-relatedquestions, withoutneedinganykindofknowledgeinjection, The datasets used in this study include Fisuchas RAG.Hence,wech"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_22",
+    "source": "2025.genaik-1.6.txt",
+    "text": "gmainstream,generaldomain-relatedquestions, withoutneedinganykindofknowledgeinjection, The datasets used in this study include Fisuchas RAG.Hence,wechosetoexperimenton nance Bench (Islam et al., 2023), a benchmark the Financebench (Islam et al., 2023) dataset, as for evaluating AI systems in finance, which conitcontainsquestionsonfinancialdocumentsfrom tains various financial documents like regulatory the filings of public companies6, which are less reportsandfinancialstatements. Additionally,we likely to have been seen and memorized by curutilized DORA (Digital Operational Resilience rentlyavailable LLM.Thedatasetiscomprisedof Act)(European Parliamentand Councilofthe Eu150 questions and 84 documents. For each pair ropean Union,2022),a European Unionregulation (question,document)inthisdataset,weretrieved on managing IT risks in the financial sector, and the8mostrelevantchunksandaskedan L"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_23",
+    "source": "2025.genaik-1.6.txt",
+    "text": "pean Unionregulation (question,document)inthisdataset,weretrieved on managing IT risks in the financial sector, and the8mostrelevantchunksandaskedan LLMto the FFIEC IT Handbook(Federal Financial Institutions Examination Council,2019),whichoffers 6 58 faithfulness\u2191 hallucination\u2193 6e+05 Llama3.23B Text RAG 0.844 0.704 4e+05 Facts RAG 0.937 0.679 2e+05 KG-RAG 0.790 0.660 0e+00 Llama3.18B Llama 3.1 8B Llama 3.2 3B Qwen 2.5 32B Model Text RAG 0.843 0.659 Facts RAG 0.891 0.658 KG-RAG 0.890 0.532 Qwen2.532B Text RAG 0.954 0.395 Facts RAG 0.970 0.594 KG-RAG 0.963 0.407 Table1: Deep Evalscoreswith GPT4oasajudge. generate an answer. Finally, we relied on Deep Eval7 to perform the evaluation. Deep Eval relies onastrong LLMtoautomaticallyscore RAGsystems,wechose GPT-4osinceithasbeenreported asbeingoneofthemostaccurate. Inordertoevaluatethepropensitytohallucinate,wereportinthe following the faithfuln"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_24",
+    "source": "2025.genaik-1.6.txt",
+    "text": "ms,wechose GPT-4osinceithasbeenreported asbeingoneofthemostaccurate. Inordertoevaluatethepropensitytohallucinate,wereportinthe following the faithfulness measures from Deep Eval, as it quantifies the consistency of the generatedanswergivencontextualinformation. Thisisa goodproxyforhallucinationbecauseweexpectthe LLM\u2019s response to be aligned with the retrieved chunks,anditisalsotherecommendedwaytomeasurehallucination. Wealsoreportthehallucination measurefrom Deep Evalforcompleteness. For each RAG system, we experimented with three LLMs: Llama 3.2 3B,Llama 3.1 8B(Dubey etal.,2024)and Qwen 2.5 32B(Team,2024). We usedthesesame LLMtogeneratefactsduringthe facts-RAGexperiments. The results of the Deep Eval evaluation are shownin Table1. Weobserveanincreaseinfaithfulness when switching from text to graph-based RAGsystems,exceptwiththesmallermodel. This observation fits our prior hypothesis stat"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_25",
+    "source": "2025.genaik-1.6.txt",
+    "text": "anincreaseinfaithfulness when switching from text to graph-based RAGsystems,exceptwiththesmallermodel. This observation fits our prior hypothesis stating that providingcontextualinformationfrom KGcanreducehallucinations. Wealsoobservethatthegapbetween Textand Facts RAGishigherwithsmaller,andsupposedly lesspowerful,models. Sincethismeasurequantifiestheconsistencybetweentheretrievedcontext andthegeneratedanswer,weconcludethatsmaller modelshavesomedifficultiestofilteroutnoisein 7 59 noitpmusnoc sneko T Facts RAG Text RAG Figure4: Totalnumberofinputtokensconsumedduringourexperiments,forall150questions. Facts RAG usesdenseandeffectivepromptswhileproducingless hallucinationsthan Text RAG. raw texts, thus providing cleaner facts help them generatingmoreappropriateanswers;whilelarger modelshavebetterreasoningcapabilitiesandcan filterirrelevantinformationontheirown. 5.3.1 Ablationstudies We condu"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_26",
+    "source": "2025.genaik-1.6.txt",
+    "text": "ngmoreappropriateanswers;whilelarger modelshavebetterreasoningcapabilitiesandcan filterirrelevantinformationontheirown. 5.3.1 Ablationstudies We conducted ablation studies to measure the individual contribution of text and graph contexts. Theseexperimentsfocusonour KG-RAGsystem, we removed either the text chunks or the triples extractedfromthe KGandwecomputedthefaithfulnessandhallucinationmeasuresfrom Deep Eval . The results, shown in Table 2, shows that the faithfulnessisalwaysbetterwhenprovidingonly triplesfromour KG. Wealsoobservethattherelativedifferencesbetweenallsetups(hybrid,notextandnograph)tend todecreasethelargerthemodelis. Thisvalidates ourpreviousassumption,largemodelscanfilterout irrelevantanduselessinformationbythemselves. However,wearguethatlettingthemodeldothefilteringissuboptimalasitrequirestoprovideevery bits of available information to the LLM. We alreadyshowedthatgrap"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_27",
+    "source": "2025.genaik-1.6.txt",
+    "text": "ever,wearguethatlettingthemodeldothefilteringissuboptimalasitrequirestoprovideevery bits of available information to the LLM. We alreadyshowedthatgraph-based RAGimprovesthe overall response by reducing hallucinations, and weshowinthefollowingthatitalsohasthebenefitofbeingalotmoreefficientintermsoftokens consumptionasillustratedin Figure4. 5.4 RQ2: Hybrid RAGoptimizingtokens usagein Graph-based RAGSystems This experiment examines Graph RAG\u2019s capabilitytodetectcontradictionsinregulatorylanguage across jurisdictions, specifically between DORA (EU)and FFIEC(US)documents,demonstrating itsefficiencyinlarge-scaleregulatoryanalysis. Using a knowledge-graph-based KNN clusterfaithfulness\u2191 hallucination\u2193 ation pipeline, it also presents some drawbacks. Firstly, it requires a lot of computing power and Llama3.23B is impractical for large-scale evaluations due to text+graph 0.790 0.660 highlatencyand"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_28",
+    "source": "2025.genaik-1.6.txt",
+    "text": ". Firstly, it requires a lot of computing power and Llama3.23B is impractical for large-scale evaluations due to text+graph 0.790 0.660 highlatencyandpotentiallyprohibitivecosts. For graphonly 0.940 0.665 instance,evaluatingasinglesystem(only150questextonly 0.807 0.690 tions)necessitatesprocessingapproximately4mil Llama3.18B lion input tokens and 0.4 million output tokens. text+graph 0.890 0.532 Secondly,thepromptsutilizedareoftenhard-coded graphonly 0.965 0.576 in English,whichrendersthetoolkitunsuitablefor textonly 0.866 0.592 applicationsinotherlanguages. Lastly, even if we showed that introducing Qwen2.532B knowledge from KG enhances RAG systems, it text+graph 0.963 0.407 isimportanttopointoutthedifficultiesofbuilding graphonly 0.988 0.619 andqueryingagraphthatsuitsourtargettask. The textonly 0.945 0.365 underlyingschemaofexisting KGmightnotfitthe target use case, hence the KG often "
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_29",
+    "source": "2025.genaik-1.6.txt",
+    "text": "619 andqueryingagraphthatsuitsourtargettask. The textonly 0.945 0.365 underlyingschemaofexisting KGmightnotfitthe target use case, hence the KG often has to be ei Table2: Deep Evalscoreswith GPT4oasajudgewhen therhand-crafted(extremelycostlyanddifficultto removingtextorgraphcontexts. maintain)orautomaticallygenerated(error-prone andcompute-intensive). Forinstance,Mihindukuing approach, Hybrid RAG minimizes token conlasooriyaetal.(2023)showthatprecisionandresumptionbystreamliningcontradictiondetection. call are very low even when the set of relation\u2019s Unliketraditional RAGmethodsthatrelyoncostly typestoextractisrestricted. pairwise comparisons (O(n2) complexity), Hybrid RAGclustersdocumentsegmentswith KNN 6.2 Futurework (O(k \u00b7n) complexity), where n being the num Future work could extend graph-based RAG apberofchunks-reducingretrievaltotargeted,conproaches to handle diverse datasets, incl"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_30",
+    "source": "2025.genaik-1.6.txt",
+    "text": " where n being the num Future work could extend graph-based RAG apberofchunks-reducingretrievaltotargeted,conproaches to handle diverse datasets, including vitextually relevant nodes. This approach involves sually rich and multilingual documents, by inteembeddingeachdocumentnode,clusteringsimilar gratingvisualembeddingsfrom Vision-Language segments,andgeneratingoptimized LLMprompts Models (Faysse et al., 2024) and heterogeneous forcontradictiondetection. data(Sunetal.,2024). Fine-tuninglanguagemod Withthisclusteringmethod(k = 10),APIcalls elswithdomain-specificknowledgecouldfurther decreasedfromalmost2million(1975944with reduce hallucination rates. Additionally, incorthe classical approach) to just 2 690, achieving a porating multimodal capabilities (e.g., text and 734-foldreductionintokenconsumption. Eightpoimages) could enhance contextual understanding tentialcontradictionswereidentifi"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_31",
+    "source": "2025.genaik-1.6.txt",
+    "text": "abilities (e.g., text and 734-foldreductionintokenconsumption. Eightpoimages) could enhance contextual understanding tentialcontradictionswereidentified,underscoring and retrieval precision. Improving the scalability Graph RAG\u2019seffectivenessinenhancingcomputaof knowledge graph construction and integrating tional efficiency and cost-effectiveness in regulaexternal sources like ontologies could further retorydocumentretrieval. ducehallucinations(Agrawaletal.,2023). Exploringhybridmodelscombiningsymbolicreasoning 6 Perspectivesand Future Work withdeeplearning(Ambrogioetal.,2023)andadvancedpost-generationverification(Sansfordetal., 6.1 Limitations 2024)couldalsoimprove RAGsystems. Thisworkfocusesexclusivelyonthe Englishlan6.3 Architecturedesigntoindustrialize RAG guage,andassuch,wecannotconfidentlygeneralsystemsinproduction izeourfindingstootherlanguages,eventhosewith highresourceavailabilit"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_32",
+    "source": "2025.genaik-1.6.txt",
+    "text": "toindustrialize RAG guage,andassuch,wecannotconfidentlygeneralsystemsinproduction izeourfindingstootherlanguages,eventhosewith highresourceavailability. Weproposeadesigntosmoothlydeploy RAGsys Severallimitationsareassociatedwiththe Deeptemsinproduction. Thearchitectureschemainthe Evaltoolkitusedforevaluatingour RAGsystems. appendix of Figure 6 demonstrates how modular Generally speaking, the use of LLM as a judge designcanensurescalabilityandsystemreliability. offers numerous advantages, such as ease of use The RAGlogiciscomposedofmostoftheapp andtheabilitytoenablereproducibleevaluations that the user interacts with containing the RAG through hard-coded prompts and standard evalulogic,themodelshub(green)whichisdeployedon 60 its infrastructure mostly based on GPU, the Data reduction inhallucinations while using 80% Module(red)whichconsistsofthe Dataingestion fewertokenscomparedtotext-only"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_33",
+    "source": "2025.genaik-1.6.txt",
+    "text": "re mostly based on GPU, the Data reduction inhallucinations while using 80% Module(red)whichconsistsofthe Dataingestion fewertokenscomparedtotext-only RAG. layerof RAG,the Evaluation Module(lightblue) 2. Efficiencyand Cost Savings: Fordocument whichisresponsibleofallfunctionalevaluationsof comparison use-case, Graph RAG improves the RAGandlastlyoneofthemostimportantparts, efficiency by filtering out irrelevant data, rethemonitoringandthelogging(orange),whichenducing computational costs, and enhancing surethatoursystemworkswell,helpwithdebugscalability. Using semantic clustering, it reging, audits, updates, and gives the entire vision ducesthecomplexityofdetectingcontradicof the RAG. This setup allows each component tions from O(n2) to O(k \u00b7n) where n is the tooperateindependentlyandcohesively,supportnumberofchunksandnodesinthegraph. ingefficientscaling,robustfunctionality,andclear tracea"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_34",
+    "source": "2025.genaik-1.6.txt",
+    "text": "n) where n is the tooperateindependentlyandcohesively,supportnumberofchunksandnodesinthegraph. ingefficientscaling,robustfunctionality,andclear traceability. 3. Enhanced Explainabilityand Traceability: Hybrid RAG,usingknowledgegraphs,allows 6.4 Lessonslearnedandbestpracticesfor userstotraceresponsesbacktospecificdata deploying RAGsystemsin Production sourcesandrelationshipsasshownin Figure Wesharesomerecommendationsbasedonlessons 5(anexampleoftheoutputofthedemousing learnedinlarge-scalebankinginfrastructure. NEO4J).Thistransparencyiscrucialforsec Tomaintainefficientoperation,severalbestpractorslikefinanceandbanking,enablingbetter ticesmustbefollowedwhendeploying RAGsysgovernance, easier audits, and a more thortemsinproduction. First,amodulardesignshould oughunderstandingofthereasoningbehind be implemented to allow easier maintenance, upanswers. dates,andscalability(Zhangetal.,2021). Cach"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_35",
+    "source": "2025.genaik-1.6.txt",
+    "text": "rdesignshould oughunderstandingofthereasoningbehind be implemented to allow easier maintenance, upanswers. dates,andscalability(Zhangetal.,2021). Caching This efficiency demonstrates that graph-based frequentlyaccessedqueriescanhelpreducelatency retrievalmethodscanmakelarge-scale LLMappliandimproveperformance. Additionally,usingan cations more cost-effective and accessible. How LLMgatewayenablesswitchingbetweenmodels ever, their effectiveness depends on factors such basedontaskrequirements. as the dataset, knowledge graph modeling, and Real-timemonitoringandloggingmechanisms thespecificretrievaltask,highlightingthatgraphshouldtracksystemhealth,latency,errorrates,and basedapproachesarenotalwaysinherentlymore performance metrics, enabling prompt issue resefficient. olution and continuous improvement (Smith and Roberts, 2022). Appropriate evaluation metrics Acknowledgments shouldassessystem"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_36",
+    "source": "2025.genaik-1.6.txt",
+    "text": "mpt issue resefficient. olution and continuous improvement (Smith and Roberts, 2022). Appropriate evaluation metrics Acknowledgments shouldassessystemaccuracyandreliability,with faithfulnessasakeymetrictoensurethegenerated Wearegratefulto Jean-Luc Billyand Philip Rathle responsesalignwiththeintendedoutputs(Kumar fortheirinsightfuldiscussionson RAGand Knowletal.,2023). Finally,securitymeasuressuchasinedge Graphs,andto Virginie Chenal-Lazeand Gael putandoutputguardrailsarenecessarytomaintain Marchandforsharingtheirdomainknowledgeon ethicalboundaries(Pateland Gupta,2024). Reguregulatorymatters. Wealsoacknowledge Lingua larbackupsandauditloggingensuredataintegrity, Custodiaand BNPParibas ITGroupforproviding traceability,andreproducibilityacrossthesystem. thecomputingresourcesthatsupportedtheexperimentsonlargelanguagemodels(LLMs). 7 Conclusion Reproducibility This study demonstrates three sig"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_37",
+    "source": "2025.genaik-1.6.txt",
+    "text": "thesystem. thecomputingresourcesthatsupportedtheexperimentsonlargelanguagemodels(LLMs). 7 Conclusion Reproducibility This study demonstrates three significant contri We open-sourced the code to facilitate adoption butions of graph-based approaches in enhancing andreproducibilityofexperiments. classical RAGsystems: Hybrid RAG Code for Hybrid RAG demo to compare DORA&FFIECisavailableon Github8. 1. Reduction of Hallucinations: The use of Fact RAGCodeforbothtextandfacts RAGused graph-based structures, such as Fact-RAG, with Finance Bench Dataareavailableon Github9. significantly reduces hallucinations by linking contextually relevant information. This 8 dora-ffiec-hybrid-rag-neo4j leadstomorepreciseandcompleteresponses, 9 withexperimentalevaluationsshowinga6% financebench-graph-rag 61"
+  },
+  {
+    "chunk_id": "2025.genaik-1.6_chunk_38",
+    "source": "2025.genaik-1.6.txt",
+    "text": "tionsshowinga6% financebench-graph-rag 61"
+  }
+]
